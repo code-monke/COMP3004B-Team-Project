@@ -489,6 +489,18 @@ QPushButton:pressed {
            <layout class="QGridLayout" name="adminTabGridLayout">
             <item row="0" column="2">
              <widget class="QDoubleSpinBox" name="batteryLevelAdminSpinBox">
+              <property name="minimumSize">
+               <size>
+                <width>82</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>82</width>
+                <height>30</height>
+               </size>
+              </property>
               <property name="suffix">
                <string>%</string>
               </property>
