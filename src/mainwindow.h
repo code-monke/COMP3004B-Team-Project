@@ -17,5 +17,17 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+private slots:
+
+    void pressedBackButton();
+    void pressedMenuButton();
+    void pressedUpButton();
+    void pressedLeftButton();
+    void pressedOkButton();
+    void pressedRightButton();
+    void pressedDownButton();
+    void pressedPowerButton();
+
 };
 #endif // MAINWINDOW_H
