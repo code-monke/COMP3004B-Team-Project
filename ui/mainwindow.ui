@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>410</width>
-    <height>600</height>
+    <width>734</width>
+    <height>623</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,13 +17,28 @@
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>801</width>
+      <x>10</x>
+      <y>10</y>
+      <width>711</width>
       <height>601</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
+     <property name="spacing">
+      <number>10</number>
+     </property>
+     <property name="leftMargin">
+      <number>5</number>
+     </property>
+     <property name="topMargin">
+      <number>5</number>
+     </property>
+     <property name="rightMargin">
+      <number>5</number>
+     </property>
+     <property name="bottomMargin">
+      <number>5</number>
+     </property>
      <item>
       <widget class="QWidget" name="widget" native="true">
        <property name="sizePolicy">
@@ -32,198 +47,276 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <widget class="QPushButton" name="OnOffButton">
+       <property name="minimumSize">
+        <size>
+         <width>250</width>
+         <height>488</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>250</width>
+         <height>488</height>
+        </size>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>250</width>
+         <height>488</height>
+        </size>
+       </property>
+       <widget class="QPushButton" name="okButton">
         <property name="geometry">
          <rect>
-          <x>310</x>
-          <y>560</y>
-          <width>75</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>On/Off</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="BackButton">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>460</y>
-          <width>75</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Back</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="MenuButton">
-        <property name="geometry">
-         <rect>
-          <x>310</x>
-          <y>460</y>
-          <width>75</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Menu</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="RightButton">
-        <property name="geometry">
-         <rect>
-          <x>230</x>
-          <y>510</y>
+          <x>110</x>
+          <y>300</y>
           <width>41</width>
-          <height>24</height>
+          <height>41</height>
          </rect>
         </property>
-        <property name="text">
-         <string>Right</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="UpButton">
-        <property name="geometry">
-         <rect>
-          <x>180</x>
-          <y>460</y>
-          <width>41</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Up</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="LeftButton">
-        <property name="geometry">
-         <rect>
-          <x>120</x>
-          <y>510</y>
-          <width>41</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Left</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_8">
-        <property name="geometry">
-         <rect>
-          <x>180</x>
-          <y>560</y>
-          <width>41</width>
-          <height>24</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Down</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="SelectButton">
-        <property name="geometry">
-         <rect>
-          <x>180</x>
-          <y>510</y>
-          <width>41</width>
-          <height>24</height>
-         </rect>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+image: url(:/buttons/okButton.svg);
+background-color: #ffffff;
+border-radius: 20px;
+}
+
+QPushButton:pressed {
+	background-color: #ffd300;
+}</string>
         </property>
         <property name="text">
          <string/>
         </property>
        </widget>
-       <widget class="QProgressBar" name="progressBar">
+       <widget class="QPushButton" name="menuButton">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>410</y>
-          <width>381</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="value">
-         <number>24</number>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_2">
-        <property name="geometry">
-         <rect>
-          <x>170</x>
-          <y>390</y>
-          <width>71</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Breath Pacer</string>
-        </property>
-       </widget>
-       <widget class="QGraphicsView" name="MetricsView">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>100</y>
-          <width>256</width>
-          <height>192</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QGraphicsView" name="MenuView">
-        <property name="geometry">
-         <rect>
-          <x>90</x>
-          <y>120</y>
-          <width>256</width>
-          <height>192</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>30</y>
-          <width>49</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Led:</string>
-        </property>
-       </widget>
-       <widget class="QGraphicsView" name="graphicsView_3">
-        <property name="geometry">
-         <rect>
-          <x>100</x>
-          <y>30</y>
+          <x>190</x>
+          <y>200</y>
           <width>41</width>
-          <height>21</height>
+          <height>41</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+image: url(:/buttons/menuButton.svg);
+background-color: #ffffff;
+border-radius: 20px;
+}
+
+QPushButton:pressed {
+	background-color: #ffd300;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
        </widget>
-       <widget class="QGraphicsView" name="SettingsView">
+       <widget class="QPushButton" name="backButton">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>200</y>
+          <width>41</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+image: url(:/buttons/backButton.svg);
+background-color: #ffffff;
+border-radius: 20px;
+}
+
+QPushButton:pressed {
+	background-color: #ffd300;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="upButton">
         <property name="geometry">
          <rect>
           <x>110</x>
-          <y>140</y>
-          <width>256</width>
-          <height>192</height>
+          <y>240</y>
+          <width>41</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+image: url(:/buttons/upButton.svg);
+background-color: #ffffff;
+border-radius: 20px;
+}
+
+QPushButton:pressed {
+	background-color: #ffd300;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="rightButton">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>300</y>
+          <width>41</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+image: url(:/buttons/rightButton.svg);
+background-color: #ffffff;
+border-radius: 20px;
+}
+
+QPushButton:pressed {
+	background-color: #ffd300;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="leftButton">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>300</y>
+          <width>41</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+image: url(:/buttons/leftButton.svg);
+background-color: #ffffff;
+border-radius: 20px;
+}
+
+QPushButton:pressed {
+	background-color: #ffd300;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="downButton">
+        <property name="geometry">
+         <rect>
+          <x>110</x>
+          <y>360</y>
+          <width>41</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+image: url(:/buttons/downButton.svg);
+background-color: #ffffff;
+border-radius: 20px;
+}
+
+QPushButton:pressed {
+	background-color: #ffd300;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="powerButton">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>430</y>
+          <width>51</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+image: url(:/buttons/powerButton.svg);
+background-color: #ffffff;
+border-radius: 20px;
+}
+
+QPushButton:pressed {
+	background-color: #ffd300;
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QListView" name="listView">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>40</y>
+          <width>231</width>
+          <height>161</height>
          </rect>
         </property>
        </widget>
-       <widget class="QGraphicsView" name="LogView">
+       <widget class="QLabel" name="menuLabel">
         <property name="geometry">
          <rect>
-          <x>130</x>
-          <y>160</y>
-          <width>256</width>
-          <height>192</height>
+          <x>10</x>
+          <y>20</y>
+          <width>231</width>
+          <height>21</height>
          </rect>
         </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Menu</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QWidget" name="programViewWidget" native="true">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>50</y>
+          <width>211</width>
+          <height>141</height>
+         </rect>
+        </property>
+        <widget class="QGraphicsView" name="graphView">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>211</width>
+           <height>141</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="adminTab">
+        <attribute name="title">
+         <string>Tab 1</string>
+        </attribute>
        </widget>
       </widget>
      </item>
