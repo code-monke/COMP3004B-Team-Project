@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QListWidget>
+#include "Command.h"
+#include "Section.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,8 +18,21 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+//    void init_sections(Section*, Section*, Section*, Section*);
+    void initSections(Section*);
+
+    void inputCommand(Command);
+
 private:
+    void initMainMenu();
+
     Ui::MainWindow *ui;
+
+    Section* currentSection;
+    Section* mainMenuSection;
+    //etc
+    QListWidget* listView;
+    bool powered;
 
 private slots:
 

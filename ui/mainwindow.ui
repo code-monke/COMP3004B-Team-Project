@@ -257,16 +257,6 @@ QPushButton:pressed {
          <string/>
         </property>
        </widget>
-       <widget class="QListView" name="listView">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>40</y>
-          <width>231</width>
-          <height>161</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QLabel" name="menuLabel">
         <property name="geometry">
          <rect>
@@ -296,6 +286,16 @@ QPushButton:pressed {
          </rect>
         </property>
         <widget class="QGraphicsView" name="graphView">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>211</width>
+           <height>141</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QListWidget" name="listWidget">
          <property name="geometry">
           <rect>
            <x>0</x>

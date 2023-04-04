@@ -1,11 +1,22 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "Menu.h"
+
+#define CMD_UP 1
+// etc
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    powered = false;
+
     ui->setupUi(this);
+
+    mainMenuSection = new Menu(nullptr, {"Start new session", "Settings", "Log"}, ui->listWidget);
+    initMainMenu();
+    currentSection = mainMenuSection;
 
     connect(ui->backButton, SIGNAL(released()), this, SLOT(pressedBackButton()));
     connect(ui->menuButton, SIGNAL(released()), this, SLOT(pressedMenuButton()));
@@ -22,8 +33,20 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::initMainMenu(){
+
+}
+
+//void MainWindow::initSections(Section* menuSection){
+//    this->menuSection = menuSection;
+
+//    currentSection = menuSection;
+//}
+
 void MainWindow::pressedBackButton(){
     qInfo() << "back";
+    Command command = back;
+    inputCommand(command);
 }
 void MainWindow::pressedMenuButton(){
     qInfo() << "menu";
@@ -44,5 +67,9 @@ void MainWindow::pressedDownButton(){
     qInfo() << "down";
 }
 void MainWindow::pressedPowerButton(){
-    qInfo() << "power";
+    powered = true;
+}
+
+void MainWindow::inputCommand(Command command){
+    currentSection->inputCommand(command);
 }
