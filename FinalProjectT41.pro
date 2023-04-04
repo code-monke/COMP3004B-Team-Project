@@ -27,9 +27,9 @@ SOURCES += \
 HEADERS += \
     src/Menu.h \
     src/Record.h \
-    src/mainwindow.h
+    src/mainwindow.h \
     src/hrvgraph.h \
-    src/qcustomplot.h
+    src/qcustomplot.h \
     src/session.h
 
 FORMS += \

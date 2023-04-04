@@ -286,7 +286,7 @@ QPushButton:pressed {
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
-       <widget class="QCustomPlot" name="customPlot" native="true">
+       <widget class="QWidget" name="programViewWidget" native="true">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -295,6 +295,26 @@ QPushButton:pressed {
           <height>141</height>
          </rect>
         </property>
+        <widget class="QListWidget" name="listWidget">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>211</width>
+           <height>141</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QCustomPlot" name="customPlot" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>211</width>
+           <height>141</height>
+          </rect>
+         </property>
+        </widget>
        </widget>
        <widget class="QFrame" name="statusBar">
         <property name="geometry">
@@ -515,6 +535,13 @@ QPushButton:pressed {
               </property>
              </widget>
             </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="batteryLevelAdminLabel">
+              <property name="text">
+               <string>Battery Level</string>
+              </property>
+             </widget>
+            </item>
             <item row="1" column="0">
              <spacer name="verticalSpacer">
               <property name="orientation">
@@ -527,13 +554,6 @@ QPushButton:pressed {
                </size>
               </property>
              </spacer>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="batteryLevelAdminLabel">
-              <property name="text">
-               <string>Battery Level</string>
-              </property>
-             </widget>
             </item>
             <item row="0" column="1">
              <widget class="QPushButton" name="chargeAdminButton">
