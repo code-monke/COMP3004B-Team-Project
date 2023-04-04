@@ -10,13 +10,19 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    powered = false;
 
     ui->setupUi(this);
 
-    mainMenuSection = new Menu(nullptr, {"Start new session", "Settings", "Log"}, ui->listWidget);
-    initMainMenu();
-    currentSection = mainMenuSection;
+    // Create menu tree
+    masterMenu = new Menu("MAIN MENU", {"Start new session","Settings","Log"}, nullptr);
+    mainMenuOG = masterMenu;
+    initializeMainMenu(masterMenu);
+
+    // Initialize the main menu view
+    activeQListWidget = ui->listWidget;
+    activeQListWidget->addItems(masterMenu->getMenuItems());
+    activeQListWidget->setCurrentRow(0);
+    ui->menuLabel->setText(masterMenu->getName());
 
     connect(ui->backButton, SIGNAL(released()), this, SLOT(pressedBackButton()));
     connect(ui->menuButton, SIGNAL(released()), this, SLOT(pressedMenuButton()));
@@ -33,20 +39,26 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::initMainMenu(){
+void MainWindow::initializeMainMenu(Menu* m) {
 
+
+
+//    QStringList programsList;
+//    for (Therapy* p : this->programs) {
+//        programsList.append(p->getName());
+//    }
+//    Menu* programs = new Menu("PROGRAMS", programsList, m);
+//    Menu* history = new Menu("HISTORY", {"VIEW","CLEAR"}, m);
+//    m->addChildMenu(programs);
+//    m->addChildMenu(history);
+//    Menu* viewHistory = new Menu("VIEW",{}, history);
+//    Menu* clearHistory = new Menu("CLEAR", {"YES","NO"}, history);
+//    history->addChildMenu(viewHistory);
+//    history->addChildMenu(clearHistory);
 }
-
-//void MainWindow::initSections(Section* menuSection){
-//    this->menuSection = menuSection;
-
-//    currentSection = menuSection;
-//}
 
 void MainWindow::pressedBackButton(){
     qInfo() << "back";
-    Command command = back;
-    inputCommand(command);
 }
 void MainWindow::pressedMenuButton(){
     qInfo() << "menu";
@@ -67,9 +79,6 @@ void MainWindow::pressedDownButton(){
     qInfo() << "down";
 }
 void MainWindow::pressedPowerButton(){
-    powered = true;
-}
-
-void MainWindow::inputCommand(Command command){
-    currentSection->inputCommand(command);
+    qInfo() << "power";
+//    powered = true;
 }

@@ -3,8 +3,7 @@
 
 #include <QMainWindow>
 #include <QListWidget>
-#include "Command.h"
-#include "Section.h"
+#include "Menu.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,21 +17,16 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-//    void init_sections(Section*, Section*, Section*, Section*);
-    void initSections(Section*);
-
-    void inputCommand(Command);
 
 private:
-    void initMainMenu();
+    void initializeMainMenu(Menu*);
+
+    Menu* masterMenu;
+    Menu* mainMenuOG;
+    QListWidget *activeQListWidget;
 
     Ui::MainWindow *ui;
 
-    Section* currentSection;
-    Section* mainMenuSection;
-    //etc
-    QListWidget* listView;
-    bool powered;
 
 private slots:
 

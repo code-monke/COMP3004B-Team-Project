@@ -21,9 +21,7 @@ SOURCES += \
     src/mainwindow.cpp
 
 HEADERS += \
-    src/Command.h \
     src/Menu.h \
-    src/Section.h \
     src/mainwindow.h
 
 FORMS += \

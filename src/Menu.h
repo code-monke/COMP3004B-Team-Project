@@ -1,22 +1,30 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include <QListWidget>
+#include <QString>
+#include <QStringList>
+#include <QVector>
 
-#include "Section.h"
-
-class Menu : public Section{
+class Menu {
 
 public:
-    Menu(Menu* parentMenu, QStringList items, QListWidget*);
+    explicit Menu(QString, QStringList, Menu*);
     ~Menu();
-    void inputCommand(Command);
-//    void init();
+
+    QString getName();
+    QStringList getMenuItems();
+    Menu* getParent();
+    int getPos();
+    Menu* get(int);
+    void addChildMenu(Menu*);
 
 private:
-    Menu* parentMenu;
-    QStringList items;
-    QListWidget* listWidget;
+    QString name;
+    QStringList menuItems;
+    int position;
+    QVector<Menu*> subMenus;
+    Menu* parent;
+
 };
 
 #endif // MENU_H
