@@ -10,7 +10,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class HRVGraph;
+class Session;
 
 class MainWindow : public QMainWindow
 {
@@ -35,7 +35,7 @@ private:
     QStringList allRecordings;
 
     Ui::MainWindow *ui;
-    HRVGraph *graph;
+    Session *session;
 
 
 private slots:

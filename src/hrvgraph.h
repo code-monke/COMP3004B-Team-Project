@@ -12,17 +12,12 @@ class HRVGraph : public QObject
 public:
     explicit HRVGraph(QCustomPlot *customPlot, QObject *parent=nullptr);
 
+    void addHeartRate(double curTime, double heartRate);
 
 private:
     QCustomPlot *customPlot;
     QVector<double> x;
     QVector<double> y;
-    int curTime;
-    int interval;
-
-    double getRandomHeartRate();
-    void updatePlot();
-
 
 signals:
 

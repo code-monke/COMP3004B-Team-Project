@@ -21,7 +21,8 @@ SOURCES += \
     src/hrvgraph.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
-    src/qcustomplot.cpp
+    src/qcustomplot.cpp \
+    src/session.cpp
 
 HEADERS += \
     src/Menu.h \
@@ -29,6 +30,7 @@ HEADERS += \
     src/mainwindow.h
     src/hrvgraph.h \
     src/qcustomplot.h
+    src/session.h
 
 FORMS += \
     ui/mainwindow.ui

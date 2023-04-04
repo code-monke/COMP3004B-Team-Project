@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "hrvgraph.h"
+#include "session.h"
 
 #include "Menu.h"
 
@@ -9,11 +9,12 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+      , ui(new Ui::MainWindow)
 {
 
     ui->setupUi(this);
-    graph = new HRVGraph(ui->customPlot);
+    session = new Session(ui->customPlot);
+    session->start();
 
     // Create menu tree
     masterMenu = new Menu("MAIN MENU", {"Start new session","Settings","Log"}, nullptr);
