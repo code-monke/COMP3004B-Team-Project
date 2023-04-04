@@ -236,9 +236,9 @@ QPushButton:pressed {
        <widget class="QPushButton" name="powerButton">
         <property name="geometry">
          <rect>
-          <x>180</x>
+          <x>190</x>
           <y>490</y>
-          <width>51</width>
+          <width>41</width>
           <height>41</height>
          </rect>
         </property>
