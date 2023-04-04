@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Graph
     ui->customPlot->hide();
-    ui->customPlot->show();// commnent out this line to show graph
+    //ui->customPlot->show();
     session = new Session(ui->customPlot);
     session->start();
 
