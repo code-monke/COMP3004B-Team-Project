@@ -21,6 +21,8 @@ public:
 private:
     void initializeMainMenu(Menu*);
 
+    bool powerStatus;
+
     Menu* masterMenu;
     Menu* mainMenuOG;
     QListWidget *activeQListWidget;
@@ -38,6 +40,8 @@ private slots:
     void pressedRightButton();
     void pressedDownButton();
     void pressedPowerButton();
+    void setPower();
+    void updateMenu(const QString selectedMenuItem, const QStringList menuItems);
 
 };
 #endif // MAINWINDOW_H
