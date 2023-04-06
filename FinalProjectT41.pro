@@ -17,11 +17,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     src/Menu.cpp \
+    src/Record.cpp \
     src/main.cpp \
     src/mainwindow.cpp
 
 HEADERS += \
     src/Menu.h \
+    src/Record.h \
     src/mainwindow.h
 
 FORMS += \

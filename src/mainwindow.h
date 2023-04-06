@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QListWidget>
 #include "Menu.h"
+#include "Record.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,12 +21,16 @@ public:
 
 private:
     void initializeMainMenu(Menu*);
+    void navigateBack();
 
     bool powerStatus;
 
     Menu* masterMenu;
     Menu* mainMenuOG;
     QListWidget *activeQListWidget;
+
+    QVector<Record*> recordings;
+    QStringList allRecordings;
 
     Ui::MainWindow *ui;
 

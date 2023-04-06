@@ -45,20 +45,22 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeMainMenu(Menu* m) {
 
+    Menu* startNewSession = new Menu("Start new session", {}, m);
+    Menu* settings = new Menu("Settings", {"Challenge level","Breath pacer settings"}, m);
+    Menu* log = new Menu("Log", {"View", "Clear"}, m);
+    m->addChildMenu(startNewSession);
+    m->addChildMenu(settings);
+    m->addChildMenu(log);
 
+    Menu* challengeLevel = new Menu("Challenge level", {"?","?","?","?"}, settings);
+    Menu* breathPacerSettings = new Menu("Breath pacer settings", {"?","?","?","?"}, settings);
+    settings->addChildMenu(challengeLevel);
+    settings->addChildMenu(breathPacerSettings);
 
-//    QStringList programsList;
-//    for (Therapy* p : this->programs) {
-//        programsList.append(p->getName());
-//    }
-//    Menu* programs = new Menu("PROGRAMS", programsList, m);
-//    Menu* history = new Menu("HISTORY", {"VIEW","CLEAR"}, m);
-//    m->addChildMenu(programs);
-//    m->addChildMenu(history);
-//    Menu* viewHistory = new Menu("VIEW",{}, history);
-//    Menu* clearHistory = new Menu("CLEAR", {"YES","NO"}, history);
-//    history->addChildMenu(viewHistory);
-//    history->addChildMenu(clearHistory);
+    Menu* viewLog = new Menu("View",{}, log);
+    Menu* clearLog = new Menu("Clear", {"Yes","No"}, log);
+    log->addChildMenu(viewLog);
+    log->addChildMenu(clearLog);
 }
 
 void MainWindow::updateMenu(const QString selectedMenuItem, const QStringList menuItems) {
@@ -73,6 +75,9 @@ void MainWindow::updateMenu(const QString selectedMenuItem, const QStringList me
 void MainWindow::pressedBackButton(){
     qInfo() << "back";
 
+    this->navigateBack();
+}
+void MainWindow::navigateBack(){
     if (masterMenu->getName() == "MAIN MENU") {
         activeQListWidget->setCurrentRow(0);
     }
@@ -107,6 +112,61 @@ void MainWindow::pressedLeftButton(){
 }
 void MainWindow::pressedOkButton(){
     qInfo() << "ok";
+
+    int index = activeQListWidget->currentRow();
+    if (index < 0) return;
+
+    // Prevent crash if ok button is selected in view
+    if (masterMenu->getName() == "VIEW") {
+        return;
+    }
+
+    //Logic for when the menu is the delete menu.
+    if (masterMenu->getName() == "CLEAR") {
+        if (masterMenu->getMenuItems()[index] == "YES") {
+//            db->deleteRecords();
+            allRecordings.clear();
+
+            for (int x = 0; x < recordings.size(); x++) {
+                delete recordings[x];
+            }
+
+            recordings.clear();
+            navigateBack();
+            return;
+        }
+        else {
+            navigateBack();
+            return;
+        }
+    }
+
+    //If the menu is a parent and clicking on it should display more menus.
+    if (masterMenu->get(index)->getMenuItems().length() > 0) {
+        masterMenu = masterMenu->get(index);
+        MainWindow::updateMenu(masterMenu->getName(), masterMenu->getMenuItems());
+
+
+    }
+//    //If the menu is not a parent and clicking on it should start a therapy
+//    else if (masterMenu->get(index)->getMenuItems().length() == 0 && (masterMenu->getName() == "FREQUENCIES" || masterMenu->getName() == "PROGRAMS")) {
+//        if (masterMenu->getName() == "PROGRAMS") {
+//            //Update new menu info
+//            masterMenu = masterMenu->get(index);
+//            MainWindow::updateMenu(programs[index]->getName(), {});
+//            MainWindow::beginTherapy(programs[index]);
+//        }
+//        else if (masterMenu->getName() == "FREQUENCIES") {
+//            masterMenu = masterMenu->get(index);
+//            MainWindow::updateMenu(frequencies[index]->getName(), {});
+//            MainWindow::beginTherapy(frequencies[index]);
+//        }
+//    }
+    //If the button pressed should display the device's recordings.
+    else if (masterMenu->get(index)->getName() == "VIEW") {
+        masterMenu = masterMenu->get(index);
+        MainWindow::updateMenu("RECORDINGS", allRecordings);
+    }
 }
 void MainWindow::pressedRightButton(){
     qInfo() << "right";
