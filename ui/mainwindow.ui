@@ -266,6 +266,10 @@ QPushButton:pressed {
           <height>161</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 0, 0);
+</string>
+        </property>
        </widget>
        <widget class="QLabel" name="menuLabel">
         <property name="geometry">
@@ -289,20 +293,26 @@ QPushButton:pressed {
        <widget class="QWidget" name="programViewWidget" native="true">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>130</y>
-          <width>211</width>
-          <height>141</height>
+          <x>10</x>
+          <y>120</y>
+          <width>231</width>
+          <height>161</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
         </property>
         <widget class="QListWidget" name="listWidget">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>211</width>
-           <height>141</height>
+           <width>231</width>
+           <height>161</height>
           </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
          </property>
         </widget>
         <widget class="QCustomPlot" name="customPlot" native="true">
@@ -310,11 +320,16 @@ QPushButton:pressed {
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>211</width>
-           <height>141</height>
+           <width>231</width>
+           <height>161</height>
           </rect>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
         </widget>
+        <zorder>customPlot</zorder>
+        <zorder>listWidget</zorder>
        </widget>
        <widget class="QFrame" name="statusBar">
         <property name="geometry">
@@ -490,6 +505,19 @@ QPushButton:pressed {
          <bool>false</bool>
         </property>
        </widget>
+       <zorder>okButton</zorder>
+       <zorder>menuButton</zorder>
+       <zorder>backButton</zorder>
+       <zorder>upButton</zorder>
+       <zorder>rightButton</zorder>
+       <zorder>leftButton</zorder>
+       <zorder>downButton</zorder>
+       <zorder>powerButton</zorder>
+       <zorder>listView</zorder>
+       <zorder>menuLabel</zorder>
+       <zorder>statusBar</zorder>
+       <zorder>breathPacer</zorder>
+       <zorder>programViewWidget</zorder>
       </widget>
      </item>
      <item>
