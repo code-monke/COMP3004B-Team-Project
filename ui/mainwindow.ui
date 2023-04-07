@@ -295,7 +295,7 @@ QPushButton:pressed {
           <height>141</height>
          </rect>
         </property>
-        <widget class="QGraphicsView" name="graphView">
+        <widget class="QListWidget" name="listWidget">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -305,7 +305,7 @@ QPushButton:pressed {
           </rect>
          </property>
         </widget>
-        <widget class="QListWidget" name="listWidget">
+        <widget class="QCustomPlot" name="customPlot" native="true">
          <property name="geometry">
           <rect>
            <x>0</x>
@@ -596,6 +596,14 @@ QPushButton:pressed {
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>src/qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

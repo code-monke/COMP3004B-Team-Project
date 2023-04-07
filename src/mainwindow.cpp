@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "session.h"
 
 #include "Menu.h"
 
@@ -8,10 +9,15 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+      , ui(new Ui::MainWindow)
 {
 
     ui->setupUi(this);
+
+    //Graph
+    ui->customPlot->hide();
+    session = new Session(ui->customPlot);
+    session->start();
 
     // Create menu tree
     masterMenu = new Menu("MAIN MENU", {"Start new session","Settings","Log"}, nullptr);

@@ -10,6 +10,8 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+class Session;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -33,6 +35,7 @@ private:
     QStringList allRecordings;
 
     Ui::MainWindow *ui;
+    Session *session;
 
 
 private slots:

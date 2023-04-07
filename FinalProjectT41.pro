@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++11
 
@@ -18,13 +18,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     src/Menu.cpp \
     src/Record.cpp \
+    src/hrvgraph.cpp \
     src/main.cpp \
-    src/mainwindow.cpp
+    src/mainwindow.cpp \
+    src/qcustomplot.cpp \
+    src/session.cpp
 
 HEADERS += \
     src/Menu.h \
     src/Record.h \
-    src/mainwindow.h
+    src/mainwindow.h \
+    src/hrvgraph.h \
+    src/qcustomplot.h \
+    src/session.h
 
 FORMS += \
     ui/mainwindow.ui
