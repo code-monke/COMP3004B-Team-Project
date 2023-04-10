@@ -14,13 +14,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
 
+    sessionStatus = false;
+
     //Graph
     ui->customPlot->hide();
-    session = new Session(ui->customPlot);
-    session->start();
 
     // Create menu tree
-    masterMenu = new Menu("MAIN MENU", {"Start new session","Settings","Log"}, nullptr);
+    masterMenu = new Menu("Main menu", {"Start new session","Settings","Log"}, nullptr);
     mainMenuOG = masterMenu;
     initializeMainMenu(masterMenu);
 
@@ -81,10 +81,16 @@ void MainWindow::updateMenu(const QString selectedMenuItem, const QStringList me
 void MainWindow::pressedBackButton(){
     qInfo() << "back";
 
+    if (sessionStatus){
+//        session->stop();
+        sessionStatus = false;
+        ui->customPlot->hide();
+        ui->listWidget->show();
+    }
     this->navigateBack();
 }
 void MainWindow::navigateBack(){
-    if (masterMenu->getName() == "MAIN MENU") {
+    if (masterMenu->getName() == "Main menu") {
         activeQListWidget->setCurrentRow(0);
     }
     else {
@@ -95,7 +101,7 @@ void MainWindow::navigateBack(){
 void MainWindow::pressedMenuButton(){
     qInfo() << "menu";
 
-    while (masterMenu->getName() != "MAIN MENU") {
+    while (masterMenu->getName() != "Main menu") {
         masterMenu = masterMenu->getParent();
     }
 
@@ -123,13 +129,22 @@ void MainWindow::pressedOkButton(){
     if (index < 0) return;
 
     // Prevent crash if ok button is selected in view
-    if (masterMenu->getName() == "VIEW") {
+    if (masterMenu->getName() == "View") {
         return;
     }
 
+    //Logic for starting a new session
+    if (masterMenu->getName() == "Main menu" && index == 0){
+        session = new Session(ui->customPlot);
+        session->start();
+        sessionStatus = true;
+        ui->customPlot->show();
+        ui->listWidget->hide();
+    }
+
     //Logic for when the menu is the delete menu.
-    if (masterMenu->getName() == "CLEAR") {
-        if (masterMenu->getMenuItems()[index] == "YES") {
+    if (masterMenu->getName() == "Clear") {
+        if (masterMenu->getMenuItems()[index] == "Yes") {
 //            db->deleteRecords();
             allRecordings.clear();
 
@@ -169,9 +184,9 @@ void MainWindow::pressedOkButton(){
 //        }
 //    }
     //If the button pressed should display the device's recordings.
-    else if (masterMenu->get(index)->getName() == "VIEW") {
+    else if (masterMenu->get(index)->getName() == "View") {
         masterMenu = masterMenu->get(index);
-        MainWindow::updateMenu("RECORDINGS", allRecordings);
+        MainWindow::updateMenu("Recordings", allRecordings);
     }
 }
 void MainWindow::pressedRightButton(){
@@ -189,8 +204,6 @@ void MainWindow::pressedDownButton(){
     activeQListWidget->setCurrentRow(nextIndex);
 }
 void MainWindow::setPower(){
-    qInfo() << "power";
-
     activeQListWidget->setVisible(powerStatus);
     ui->menuLabel->setVisible(powerStatus);
     ui->programViewWidget->setVisible(powerStatus);
@@ -205,6 +218,8 @@ void MainWindow::setPower(){
 }
 
 void MainWindow::pressedPowerButton(){
+    qInfo() << "power";
+
     powerStatus = !powerStatus;
     setPower();
 }

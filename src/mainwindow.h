@@ -26,6 +26,7 @@ private:
     void navigateBack();
 
     bool powerStatus;
+    bool sessionStatus;
 
     Menu* masterMenu;
     Menu* mainMenuOG;
