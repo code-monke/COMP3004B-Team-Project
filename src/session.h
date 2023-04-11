@@ -12,10 +12,12 @@ class Session : public QObject
 public:
     explicit Session(QCustomPlot *customPlot,  QObject *parent = nullptr);
     void start();
+    void stop();
 
 private:
     HRVGraph *graph;
 
+    QTimer* timer;
     int curTime;
     int interval;
 

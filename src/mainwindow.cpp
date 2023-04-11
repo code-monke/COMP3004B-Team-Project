@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "session.h"
 
 #include "Menu.h"
 
@@ -82,12 +81,14 @@ void MainWindow::pressedBackButton(){
     qInfo() << "back";
 
     if (sessionStatus){
-//        session->stop();
+        currentSession->stop();
         sessionStatus = false;
+        pastSessions.push_back(currentSession);
         ui->customPlot->hide();
         ui->listWidget->show();
+    }else{
+        this->navigateBack();
     }
-    this->navigateBack();
 }
 void MainWindow::navigateBack(){
     if (masterMenu->getName() == "Main menu") {
@@ -135,8 +136,8 @@ void MainWindow::pressedOkButton(){
 
     //Logic for starting a new session
     if (masterMenu->getName() == "Main menu" && index == 0){
-        session = new Session(ui->customPlot);
-        session->start();
+        currentSession = new Session(ui->customPlot);
+        currentSession->start();
         sessionStatus = true;
         ui->customPlot->show();
         ui->listWidget->hide();

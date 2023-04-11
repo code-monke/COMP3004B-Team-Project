@@ -5,12 +5,11 @@
 #include <QListWidget>
 #include "Menu.h"
 #include "Record.h"
+#include "session.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
-
-class Session;
 
 class MainWindow : public QMainWindow
 {
@@ -36,7 +35,8 @@ private:
     QStringList allRecordings;
 
     Ui::MainWindow *ui;
-    Session *session;
+    QVector<Session*> pastSessions;
+    Session* currentSession;
 
 
 private slots:

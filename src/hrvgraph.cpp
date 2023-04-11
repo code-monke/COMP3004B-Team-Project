@@ -29,3 +29,7 @@ void HRVGraph::addHeartRate(double curTime, double heartRate){
     customPlot->replot();
 }
 
+void HRVGraph::clear(){
+    customPlot->clearGraphs();
+}
+

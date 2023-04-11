@@ -13,6 +13,7 @@ public:
     explicit HRVGraph(QCustomPlot *customPlot, QObject *parent=nullptr);
 
     void addHeartRate(double curTime, double heartRate);
+    void clear();
 
 private:
     QCustomPlot *customPlot;

@@ -13,9 +13,14 @@ Session::Session(QCustomPlot *customPlot, QObject *parent)
 
 void Session::start(){
     curTime = 0;
-    QTimer *timer = new QTimer(this);
+    timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Session::updateGraph);
     timer->start(interval * 1000);
+}
+
+void Session::stop(){
+    timer->stop();
+    graph->clear();
 }
 
 void Session::updateGraph(){
