@@ -50,12 +50,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeMainMenu(Menu* m) {
 
-    Menu* startNewSession = new Menu("Start new session", {}, m);
+    Menu* startNewSession = new Menu("Start new session", {"HRV Session"}, m);
     Menu* settings = new Menu("Settings", {"Challenge level","Breath pacer settings"}, m);
     Menu* log = new Menu("Log", {"View", "Clear"}, m);
     m->addChildMenu(startNewSession);
     m->addChildMenu(settings);
     m->addChildMenu(log);
+
+    Menu* HRVSession = new Menu("HRV Session", {}, startNewSession);
+    startNewSession->addChildMenu(HRVSession);
 
     Menu* challengeLevel = new Menu("Challenge level", {"?","?","?","?"}, settings);
     Menu* breathPacerSettings = new Menu("Breath pacer settings", {"?","?","?","?"}, settings);
@@ -86,9 +89,8 @@ void MainWindow::pressedBackButton(){
         pastSessions.push_back(currentSession);
         ui->customPlot->hide();
         ui->listWidget->show();
-    }else{
-        this->navigateBack();
     }
+    this->navigateBack();
 }
 void MainWindow::navigateBack(){
     if (masterMenu->getName() == "Main menu") {
@@ -101,6 +103,14 @@ void MainWindow::navigateBack(){
 }
 void MainWindow::pressedMenuButton(){
     qInfo() << "menu";
+
+    if (sessionStatus){
+        currentSession->stop();
+        sessionStatus = false;
+        pastSessions.push_back(currentSession);
+        ui->customPlot->hide();
+        ui->listWidget->show();
+    }
 
     while (masterMenu->getName() != "Main menu") {
         masterMenu = masterMenu->getParent();
@@ -129,13 +139,16 @@ void MainWindow::pressedOkButton(){
     int index = activeQListWidget->currentRow();
     if (index < 0) return;
 
-    // Prevent crash if ok button is selected in view
-    if (masterMenu->getName() == "View") {
+    // Prevent crash if ok button is selected in view and during the session
+    if (masterMenu->getName() == "View" || masterMenu->getName() == "HRV Session") {
         return;
     }
 
     //Logic for starting a new session
     if (masterMenu->getName() == "Main menu" && index == 0){
+        masterMenu = masterMenu->get(index);
+        MainWindow::updateMenu(masterMenu->getMenuItems()[0], {});
+
         currentSession = new Session(ui->customPlot);
         currentSession->start();
         sessionStatus = true;
