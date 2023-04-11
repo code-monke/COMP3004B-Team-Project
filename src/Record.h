@@ -10,20 +10,19 @@
 class Record {
 
 public:
-    Record(const QString& treatment, const QDateTime& startTime, const int powerLevel, const int duration);
-    void setPowerLevel(int p);
+    Record(const double averageCoherence, const QDateTime& startTime, const int duration, const int achievementScore);
     void setDuration(int durationMS);
 
     QString toString();
-    QString getTreatment();
+    double getAvgCoherence();
     QDateTime getStartTime();
-    int getPowerLevel();
+    int getAchievementScore();
     int getDuration(); //Seconds
 
 private:
-    QString treatment;
+    double averageCoherence;
     QDateTime startTime;
-    int powerLevel;
+    int achievementScore;
     int duration;
 
 };
