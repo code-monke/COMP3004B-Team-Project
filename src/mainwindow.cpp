@@ -74,6 +74,8 @@ void MainWindow::initializeMainMenu(Menu* m) {
     Menu* clearLog = new Menu("Clear", {"Yes","No"}, log);
     log->addChildMenu(viewLog);
     log->addChildMenu(clearLog);
+
+    ui->lengthLabel->setText("0:00");
 }
 
 void MainWindow::updateMenu(const QString selectedMenuItem, const QStringList menuItems) {
