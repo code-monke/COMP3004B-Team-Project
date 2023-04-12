@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     sessionStatus = false;
 
+    interval = -(100/5);
+
     //Graph
     ui->customPlot->hide();
 
@@ -86,6 +88,7 @@ void MainWindow::pressedBackButton(){
     if (sessionStatus){
         currentSession->stop();
         sessionStatus = false;
+        ui->breathPacer->setValue(0);
         pastSessions.push_back(currentSession);
         ui->customPlot->hide();
         ui->listWidget->show();
@@ -107,6 +110,7 @@ void MainWindow::pressedMenuButton(){
     if (sessionStatus){
         currentSession->stop();
         sessionStatus = false;
+        ui->breathPacer->setValue(0);
         pastSessions.push_back(currentSession);
         ui->customPlot->hide();
         ui->listWidget->show();
@@ -151,6 +155,10 @@ void MainWindow::pressedOkButton(){
 
         currentSession = new Session(ui->customPlot);
         currentSession->start();
+        timeString = QString::number(currentSession->getTime()/60);
+        ui->lengthLabel->setText(timeString);
+        connect(currentSession->getTimer(), &QTimer::timeout, this, &MainWindow::updateTimer);
+
         sessionStatus = true;
         ui->customPlot->show();
         ui->listWidget->hide();
@@ -238,4 +246,24 @@ void MainWindow::pressedPowerButton(){
 
     powerStatus = !powerStatus;
     setPower();
+}
+
+void MainWindow::breathPacer(){
+    //while the session is still running
+    //increase the breathPacer progress bar by an increment of 20 every seccond. Once it reaches 100, decrement it by 20 every second.
+
+    if(sessionStatus){
+        if(ui->breathPacer->value() == 100 || ui->breathPacer->value() == 0){
+            interval = -interval;
+        }
+        ui->breathPacer->setValue(ui->breathPacer->value() + interval);
+    }
+}
+
+void MainWindow::updateTimer(){
+    timeString = QString::number(currentSession->getTime()/60);
+
+    ui->lengthLabel->setText(timeString);
+
+    breathPacer();
 }

@@ -24,8 +24,12 @@ private:
     void initializeMainMenu(Menu*);
     void navigateBack();
 
+    int interval;
+
     bool powerStatus;
     bool sessionStatus;
+
+    QString timeString;
 
     Menu* masterMenu;
     Menu* mainMenuOG;
@@ -50,6 +54,8 @@ private slots:
     void pressedDownButton();
     void pressedPowerButton();
     void setPower();
+    void breathPacer();
+    void updateTimer();
     void updateMenu(const QString selectedMenuItem, const QStringList menuItems);
 
 };

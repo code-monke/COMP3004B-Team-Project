@@ -27,3 +27,11 @@ void Session::updateGraph(){
     curTime += interval;
     graph->addHeartRate(curTime, 1 + rand() % 10);
 }
+
+int Session::getTime(){
+    return curTime;
+}
+
+QTimer* Session::getTimer(){
+    return timer;
+}

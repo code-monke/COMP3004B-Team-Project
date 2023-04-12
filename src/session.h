@@ -14,6 +14,9 @@ public:
     void start();
     void stop();
 
+    QTimer* getTimer();
+    int getTime();
+
 private:
     HRVGraph *graph;
 
