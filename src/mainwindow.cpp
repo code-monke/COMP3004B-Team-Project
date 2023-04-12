@@ -218,6 +218,8 @@ void MainWindow::pressedDownButton(){
     activeQListWidget->setCurrentRow(nextIndex);
 }
 void MainWindow::setPower(){
+    MainWindow::pressedMenuButton();
+
     activeQListWidget->setVisible(powerStatus);
     ui->menuLabel->setVisible(powerStatus);
     ui->programViewWidget->setVisible(powerStatus);
