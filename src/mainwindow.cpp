@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "constants.h"
 #include "Menu.h"
 
 #define CMD_UP 1
@@ -158,7 +158,7 @@ void MainWindow::pressedOkButton(){
         masterMenu = masterMenu->get(index);
         MainWindow::updateMenu(masterMenu->getMenuItems()[0], {});
 
-        currentSession = new Session(ui->customPlot);
+        currentSession = new Session(ui->customPlot, HIGH_COH);
         currentSession->start();
 
         int currentTimerCount = currentSession->getTime();

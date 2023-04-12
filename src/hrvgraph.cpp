@@ -2,10 +2,10 @@
 #include <iostream>
 
 HRVGraph::HRVGraph(QCustomPlot* customPlot, QObject *parent)
-    : QObject{parent},
-      customPlot{customPlot},
-      x{QVector<double>()},
-      y{QVector<double>()}
+    :   QObject{parent},
+        customPlot{customPlot},
+        x{QVector<double>()},
+        y{QVector<double>()}
 {
     // Create graph
     customPlot->addGraph();
@@ -15,15 +15,15 @@ HRVGraph::HRVGraph(QCustomPlot* customPlot, QObject *parent)
     customPlot->yAxis->setLabel("Heart Rate");
 
     // Set axes ranges, so we see all data:
-    customPlot->xAxis->setRange(0, 60); // to change
-    customPlot->yAxis->setRange(0, 11); // to change
+    customPlot->xAxis->setRange(0, 210); // to change
+    customPlot->yAxis->setRange(45, 115); // to change
 
     customPlot->replot();
 
 }
 
-void HRVGraph::addHeartRate(double curTime, double heartRate){
-    x.push_back(curTime);
+void HRVGraph::addHeartRate(double t, double heartRate){
+    x.push_back(t);
     y.push_back(heartRate);
     customPlot->graph(0)->setData(x, y);
     customPlot->replot();

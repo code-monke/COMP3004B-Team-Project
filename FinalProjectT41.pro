@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     src/Menu.cpp \
     src/Record.cpp \
+    src/data.cpp \
     src/hrvgraph.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
@@ -27,6 +28,8 @@ SOURCES += \
 HEADERS += \
     src/Menu.h \
     src/Record.h \
+    src/constants.h \
+    src/data.h \
     src/mainwindow.h \
     src/hrvgraph.h \
     src/qcustomplot.h \

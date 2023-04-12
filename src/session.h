@@ -5,12 +5,13 @@
 #include "qcustomplot.h"
 
 class HRVGraph;
+class Data;
 
 class Session : public QObject
 {
     Q_OBJECT
 public:
-    explicit Session(QCustomPlot *customPlot,  QObject *parent = nullptr);
+    explicit Session(QCustomPlot *customPlot, int coherenceType,  QObject *parent = nullptr);
     void start();
     void stop();
 
@@ -19,12 +20,14 @@ public:
 
 private:
     HRVGraph *graph;
+    Data *data;
 
     QTimer* timer;
     int curTime;
     int interval;
+    int coherenceType;
 
-    void updateGraph();
+    void update();
 
 
 signals:
