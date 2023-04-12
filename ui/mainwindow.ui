@@ -516,6 +516,9 @@ QPushButton:pressed {
          <property name="text">
           <string/>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
         <widget class="QLabel" name="achievementLabel">
          <property name="geometry">

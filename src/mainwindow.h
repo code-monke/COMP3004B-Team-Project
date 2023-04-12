@@ -25,6 +25,7 @@ private:
     void navigateBack();
 
     int interval;
+    int breathIntervalSetting;
 
     bool powerStatus;
     bool sessionStatus;

@@ -15,7 +15,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     sessionStatus = false;
 
-    interval = -(100/5);
+    //default setting at 5 secconds
+    breathIntervalSetting = 5;
+
+    interval = -(100/breathIntervalSetting);
 
     //Graph
     ui->customPlot->hide();
@@ -63,7 +66,7 @@ void MainWindow::initializeMainMenu(Menu* m) {
     startNewSession->addChildMenu(HRVSession);
 
     Menu* challengeLevel = new Menu("Challenge level", {"?","?","?","?"}, settings);
-    Menu* breathPacerSettings = new Menu("Breath pacer settings", {"?","?","?","?"}, settings);
+    Menu* breathPacerSettings = new Menu("Breath pacer settings", {"5","10","15","20"}, settings);
     settings->addChildMenu(challengeLevel);
     settings->addChildMenu(breathPacerSettings);
 
@@ -89,6 +92,7 @@ void MainWindow::pressedBackButton(){
         currentSession->stop();
         sessionStatus = false;
         ui->breathPacer->setValue(0);
+        ui->lengthLabel->setText("0:00");
         pastSessions.push_back(currentSession);
         ui->customPlot->hide();
         ui->listWidget->show();
@@ -111,6 +115,7 @@ void MainWindow::pressedMenuButton(){
         currentSession->stop();
         sessionStatus = false;
         ui->breathPacer->setValue(0);
+        ui->lengthLabel->setText("0:00");
         pastSessions.push_back(currentSession);
         ui->customPlot->hide();
         ui->listWidget->show();
@@ -155,7 +160,10 @@ void MainWindow::pressedOkButton(){
 
         currentSession = new Session(ui->customPlot);
         currentSession->start();
-        timeString = QString::number(currentSession->getTime()/60);
+
+        int currentTimerCount = currentSession->getTime();
+        timeString = QString::number(currentTimerCount/60) + ((currentTimerCount%60 < 10) ? + ":0" + QString::number(currentTimerCount%60) : + ":" + QString::number(currentTimerCount%60));
+
         ui->lengthLabel->setText(timeString);
         connect(currentSession->getTimer(), &QTimer::timeout, this, &MainWindow::updateTimer);
 
@@ -261,7 +269,9 @@ void MainWindow::breathPacer(){
 }
 
 void MainWindow::updateTimer(){
-    timeString = QString::number(currentSession->getTime()/60);
+    int currentTimerCount = currentSession->getTime();
+
+    timeString = QString::number(currentTimerCount/60) + ((currentTimerCount%60 < 10) ? + ":0" + QString::number(currentTimerCount%60) : + ":" + QString::number(currentTimerCount%60));
 
     ui->lengthLabel->setText(timeString);
 
