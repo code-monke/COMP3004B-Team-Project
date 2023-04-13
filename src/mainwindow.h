@@ -58,6 +58,7 @@ private slots:
     void breathPacer();
     void updateTimer();
     void updateMenu(const QString selectedMenuItem, const QStringList menuItems);
+    void changeBatteryLevel();
 
 };
 #endif // MAINWINDOW_H

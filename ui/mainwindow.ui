@@ -415,12 +415,12 @@ QPushButton:pressed {
           <bool>false</bool>
          </property>
         </widget>
-        <widget class="QProgressBar" name="progressBar">
+        <widget class="QProgressBar" name="batteryBar">
          <property name="geometry">
           <rect>
            <x>10</x>
            <y>10</y>
-           <width>51</width>
+           <width>71</width>
            <height>16</height>
           </rect>
          </property>
@@ -431,7 +431,7 @@ QPushButton:pressed {
         <widget class="QLabel" name="coherence">
          <property name="geometry">
           <rect>
-           <x>50</x>
+           <x>20</x>
            <y>60</y>
            <width>49</width>
            <height>16</height>
@@ -473,7 +473,7 @@ QPushButton:pressed {
         <widget class="QLabel" name="achievement">
          <property name="geometry">
           <rect>
-           <x>160</x>
+           <x>180</x>
            <y>60</y>
            <width>51</width>
            <height>16</height>
@@ -494,7 +494,7 @@ QPushButton:pressed {
         <widget class="QLabel" name="coherenceLabel">
          <property name="geometry">
           <rect>
-           <x>40</x>
+           <x>20</x>
            <y>80</y>
            <width>49</width>
            <height>16</height>
@@ -502,6 +502,9 @@ QPushButton:pressed {
          </property>
          <property name="text">
           <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
         <widget class="QLabel" name="lengthLabel">
@@ -523,7 +526,7 @@ QPushButton:pressed {
         <widget class="QLabel" name="achievementLabel">
          <property name="geometry">
           <rect>
-           <x>160</x>
+           <x>180</x>
            <y>80</y>
            <width>49</width>
            <height>16</height>
@@ -531,6 +534,9 @@ QPushButton:pressed {
          </property>
          <property name="text">
           <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </widget>
@@ -586,31 +592,6 @@ QPushButton:pressed {
          <layout class="QVBoxLayout" name="adminTabVBoxLayout">
           <item>
            <layout class="QGridLayout" name="adminTabGridLayout">
-            <item row="0" column="2">
-             <widget class="QDoubleSpinBox" name="batteryLevelAdminSpinBox">
-              <property name="minimumSize">
-               <size>
-                <width>82</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>82</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="suffix">
-               <string>%</string>
-              </property>
-              <property name="maximum">
-               <double>100.000000000000000</double>
-              </property>
-              <property name="value">
-               <double>100.000000000000000</double>
-              </property>
-             </widget>
-            </item>
             <item row="2" column="0">
              <spacer name="verticalSpacer">
               <property name="orientation">
@@ -623,6 +604,13 @@ QPushButton:pressed {
                </size>
               </property>
              </spacer>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="batteryLevelAdminLabel">
+              <property name="text">
+               <string>Battery Level</string>
+              </property>
+             </widget>
             </item>
             <item row="0" column="1">
              <widget class="QPushButton" name="chargeAdminButton">
@@ -654,13 +642,6 @@ QPushButton:pressed {
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="batteryLevelAdminLabel">
-              <property name="text">
-               <string>Battery Level</string>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="0">
              <widget class="QLabel" name="hrContactLabel">
               <property name="text">
@@ -680,6 +661,31 @@ QPushButton:pressed {
                 <string>On</string>
                </property>
               </item>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QDoubleSpinBox" name="batteryLevelAdminSpinBox">
+              <property name="minimumSize">
+               <size>
+                <width>82</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>82</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="suffix">
+               <string>%</string>
+              </property>
+              <property name="maximum">
+               <double>100.000000000000000</double>
+              </property>
+              <property name="value">
+               <double>100.000000000000000</double>
+              </property>
              </widget>
             </item>
            </layout>

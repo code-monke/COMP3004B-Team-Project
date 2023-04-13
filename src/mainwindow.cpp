@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->rightButton, SIGNAL(released()), this, SLOT(pressedRightButton()));
     connect(ui->downButton, SIGNAL(released()), this, SLOT(pressedDownButton()));
     connect(ui->powerButton, SIGNAL(released()), this, SLOT(pressedPowerButton()));
+    connect(ui->chargeAdminButton, SIGNAL(released()), this, SLOT(changeBatteryLevel()));
 }
 
 MainWindow::~MainWindow()
@@ -76,6 +77,8 @@ void MainWindow::initializeMainMenu(Menu* m) {
     log->addChildMenu(clearLog);
 
     ui->lengthLabel->setText("0:00");
+    ui->achievementLabel->setText("0");
+    ui->coherenceLabel->setText("0");
 }
 
 void MainWindow::updateMenu(const QString selectedMenuItem, const QStringList menuItems) {
@@ -254,7 +257,13 @@ void MainWindow::setPower(){
 void MainWindow::pressedPowerButton(){
     qInfo() << "power";
 
-    powerStatus = !powerStatus;
+    if(ui->batteryBar->value() == 0){
+        powerStatus = false;
+    }
+    else{
+        powerStatus = !powerStatus;
+    }
+
     setPower();
 }
 
@@ -277,5 +286,19 @@ void MainWindow::updateTimer(){
 
     ui->lengthLabel->setText(timeString);
 
+    ui->batteryBar->setValue(ui->batteryBar->value()-1);
+    ui->batteryLevelAdminSpinBox->setValue(ui->batteryBar->value());
+    if(ui->batteryBar->value() == 0){
+        pressedPowerButton();
+    }
+
     breathPacer();
+}
+
+void MainWindow::changeBatteryLevel(){
+    ui->batteryBar->setValue(ui->batteryLevelAdminSpinBox->value());
+
+    if(ui->batteryBar->value() == 0){
+        pressedPowerButton();
+    }
 }
