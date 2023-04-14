@@ -2,6 +2,9 @@
 #include "ui_mainwindow.h"
 #include "constants.h"
 #include "Menu.h"
+#include <iostream>
+
+using namespace std;
 
 #define CMD_UP 1
 // etc
@@ -23,6 +26,9 @@ MainWindow::MainWindow(QWidget *parent)
     //Graph
     ui->customPlot->hide();
 
+    //Light
+    ui->cohLight->setStyleSheet("");
+
     // Create menu tree
     masterMenu = new Menu("Main menu", {"Start new session","Settings","Log"}, nullptr);
     mainMenuOG = masterMenu;
@@ -38,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
     powerStatus = false;
     setPower();
 
+    // UI Connections
     connect(ui->backButton, SIGNAL(released()), this, SLOT(pressedBackButton()));
     connect(ui->menuButton, SIGNAL(released()), this, SLOT(pressedMenuButton()));
     connect(ui->upButton, SIGNAL(released()), this, SLOT(pressedUpButton()));
@@ -163,8 +170,10 @@ void MainWindow::pressedOkButton(){
         masterMenu = masterMenu->get(index);
         MainWindow::updateMenu(masterMenu->getMenuItems()[0], {});
 
+        //Load Session
         currentSession = new Session(ui->customPlot, HIGH_COH);
         currentSession->start();
+        connect(currentSession, &Session::sessionUpdated, this, &MainWindow::onSessionUpdated);
 
         int currentTimerCount = currentSession->getTime();
         timeString = QString::number(currentTimerCount/60) + ((currentTimerCount%60 < 10) ? + ":0" + QString::number(currentTimerCount%60) : + ":" + QString::number(currentTimerCount%60));
@@ -301,4 +310,29 @@ void MainWindow::changeBatteryLevel(){
     if(ui->batteryBar->value() == 0){
         pressedPowerButton();
     }
+}
+
+/*
+ * Update coherence and achievement score labels
+ * Update coherence level light
+*/
+void MainWindow::onSessionUpdated(double achieveScore, double cohScore, int curCohLvl, int curTime){
+    if (cohScore != -1) ui->coherenceLabel->setText(QString::number(cohScore));
+    ui->achievementLabel->setText(QString::number(achieveScore));
+
+    // Update light
+    if (curCohLvl == HIGH_COH) {
+        QString style = "background-color: green;";
+        ui->cohLight->setStyleSheet(style);
+    }
+    else if (curCohLvl == MED_COH) {
+        QString style = "background-color: blue;";
+        ui->cohLight->setStyleSheet(style);
+    }
+    else if (curCohLvl == LOW_COH){
+        QString style = "background-color: red;";
+        ui->cohLight->setStyleSheet(style);
+    }
+
+
 }

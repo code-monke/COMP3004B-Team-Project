@@ -1,7 +1,7 @@
 #include "constants.h"
 #include "data.h"
 
-Data::Data()
+Data::Data(int cohLvl)
 {
     this->hcData = {
         {
@@ -95,20 +95,20 @@ Data::Data()
             0.92, 1.12, 1.23, 1.2, 1.23, 1.07, 1.12, 1.49, 1.41, 1.07
         }
     };
+
+    if (cohLvl == HIGH_COH) activeData = &this->hcData;
+    if (cohLvl == MED_COH) activeData = &this->mcData;
+    if (cohLvl == LOW_COH) activeData = &this->lcData;
 }
 
-double Data::getHeartRate(int coherenceType, int t){
-    if (t > this->hcData[0].size()) return -1;
-    if (coherenceType == HIGH_COH) return this->hcData[0][t];
-    else if (coherenceType == MED_COH) return this->mcData[0][t];
-    else if (coherenceType == LOW_COH) return this->lcData[0][t];
+double Data::getHeartRate(int t){
+    if (t > (*activeData)[0].size()) return -1;
+    return (*activeData)[0][t];
 }
 
-double Data::getCoherence(int coherenceType, int t){
+double Data::getCoherence(int t){
     if (t < 5 || t > this->hcData[0].size()) return -1;
     int index = t / 5;
-    if (coherenceType == HIGH_COH) return this->hcData[1][index];
-    else if (coherenceType == MED_COH) return this->mcData[1][index];
-    else if (coherenceType == LOW_COH) return this->lcData[1][index];
+    return (*activeData)[1][index];
 }
 

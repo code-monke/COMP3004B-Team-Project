@@ -59,6 +59,7 @@ private slots:
     void updateTimer();
     void updateMenu(const QString selectedMenuItem, const QStringList menuItems);
     void changeBatteryLevel();
+    void onSessionUpdated(double achieveScore, double cohScore, int curCohLvl, int curTime);
 
 };
 #endif // MAINWINDOW_H
