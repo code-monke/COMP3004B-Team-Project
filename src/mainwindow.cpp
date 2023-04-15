@@ -101,7 +101,7 @@ void MainWindow::pressedBackButton(){
     qInfo() << "back";
 
     if (sessionStatus){
-        currentSession->stop();
+        currentSession->finish();
         sessionStatus = false;
         ui->breathPacer->setValue(0);
         ui->lengthLabel->setText("0:00");
@@ -124,7 +124,7 @@ void MainWindow::pressedMenuButton(){
     qInfo() << "menu";
 
     if (sessionStatus){
-        currentSession->stop();
+        currentSession->finish();
         sessionStatus = false;
         ui->breathPacer->setValue(0);
         ui->lengthLabel->setText("0:00");
@@ -174,6 +174,7 @@ void MainWindow::pressedOkButton(){
         currentSession = new Session(ui->customPlot, HIGH_COH);
         currentSession->start();
         connect(currentSession, &Session::sessionUpdated, this, &MainWindow::onSessionUpdated);
+        connect(currentSession, &Session::sessionFinished, this, &MainWindow::onSessionFinished);
 
         int currentTimerCount = currentSession->getTime();
         timeString = QString::number(currentTimerCount/60) + ((currentTimerCount%60 < 10) ? + ":0" + QString::number(currentTimerCount%60) : + ":" + QString::number(currentTimerCount%60));
@@ -333,6 +334,18 @@ void MainWindow::onSessionUpdated(double achieveScore, double cohScore, int curC
         QString style = "background-color: red;";
         ui->cohLight->setStyleSheet(style);
     }
+}
 
+/*
+ * Reset UI
+ * Show summary view(?)
+ * Update log history(?)
+*/
+void MainWindow::onSessionFinished(Record *record){
+    //Reset UI
+    ui->coherenceLabel->setText(QString::number(0));
+    ui->achievementLabel->setText(QString::number(0));
+    ui->cohLight->setStyleSheet(QString(""));
 
+    cout << record->toString().toStdString() << endl;
 }

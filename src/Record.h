@@ -10,7 +10,14 @@
 class Record {
 
 public:
-    Record(const double averageCoherence, const QDateTime& startTime, const int duration, const int achievementScore);
+    Record(
+        const double averageCoherence,
+        const QDateTime& startTime,
+        const int duration,
+        const double achievementScore,
+        const double percentCoh[3]
+    );
+    const double percentCoh[3];
     void setDuration(int durationMS);
 
     QString toString();
@@ -22,7 +29,7 @@ public:
 private:
     double averageCoherence;
     QDateTime startTime;
-    int achievementScore;
+    double achievementScore;
     int duration;
 
 };

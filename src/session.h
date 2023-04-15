@@ -14,13 +14,13 @@ class Session : public QObject
 public:
     explicit Session(QCustomPlot *customPlot, int cohLvL,  QObject *parent = nullptr);
     void start();
-    void stop();
+    void finish();
 
     QTimer* getTimer();
     int getTime();
 
 signals:
-    void sessionFinished();
+    void sessionFinished(Record *record);
     void sessionUpdated(double achieveScore, double cohScore, int curCohLvl, int curtime);
 
 
@@ -29,13 +29,17 @@ private:
     Data *data;
     QTimer* timer;
     Record *record;
+    QDateTime startTime;
+
     int curTime;
     int interval;
-    int coherenceType;
+    //Stats
     double achieveScore;
     double last64cohSum;
+    double percentCoh[3]; // % time spent in {high, medium, low} coh level
 
     void update();
+    int cohScoreToLvl(double cohScore);
 
 
 signals:

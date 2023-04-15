@@ -60,6 +60,7 @@ private slots:
     void updateMenu(const QString selectedMenuItem, const QStringList menuItems);
     void changeBatteryLevel();
     void onSessionUpdated(double achieveScore, double cohScore, int curCohLvl, int curTime);
+    void onSessionFinished(Record *record);
 
 };
 #endif // MAINWINDOW_H
