@@ -63,15 +63,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeMainMenu(Menu* m) {
 
-    Menu* startNewSession = new Menu("Start new session", {"HRV Session"}, m);
+    Menu* startNewSession = new Menu("Start new session", {"High Coherence Test", "Medium Coherence Test", "Low Coherence Test"}, m);
     Menu* settings = new Menu("Settings", {"Challenge level","Breath pacer settings"}, m);
     Menu* log = new Menu("Log", {"View", "Clear"}, m);
     m->addChildMenu(startNewSession);
     m->addChildMenu(settings);
     m->addChildMenu(log);
 
-    Menu* HRVSession = new Menu("HRV Session", {}, startNewSession);
-    startNewSession->addChildMenu(HRVSession);
+    Menu* HCTSession = new Menu("High Coherence Test", {}, startNewSession);
+    Menu* MCTSession = new Menu("Medium Coherence Test", {}, startNewSession);
+    Menu* LCTSession = new Menu("Low Coherence Test", {}, startNewSession);
+    startNewSession->addChildMenu(HCTSession);
+    startNewSession->addChildMenu(MCTSession);
+    startNewSession->addChildMenu(LCTSession);
 
     Menu* challengeLevel = new Menu("Challenge level", {"?","?","?","?"}, settings);
     Menu* breathPacerSettings = new Menu("Breath pacer settings", {"5","10","15","20"}, settings);
@@ -108,8 +112,11 @@ void MainWindow::pressedBackButton(){
         pastSessions.push_back(currentSession);
         ui->customPlot->hide();
         ui->listWidget->show();
+        updateMenu(masterMenu->getName(), masterMenu->getMenuItems());
     }
-    this->navigateBack();
+    else{
+        this->navigateBack();
+    }
 }
 void MainWindow::navigateBack(){
     if (masterMenu->getName() == "Main menu") {
@@ -161,17 +168,29 @@ void MainWindow::pressedOkButton(){
     if (index < 0) return;
 
     // Prevent crash if ok button is selected in view and during the session
-    if (masterMenu->getName() == "View" || masterMenu->getName() == "HRV Session") {
+    if (masterMenu->getName() == "View" || masterMenu->getName() == "High Coherence Test" || masterMenu->getName() == "Medium Coherence Test" || masterMenu->getName() == "Low Coherence Test") {
         return;
     }
 
     //Logic for starting a new session
-    if (masterMenu->getName() == "Main menu" && index == 0){
-        masterMenu = masterMenu->get(index);
-        MainWindow::updateMenu(masterMenu->getMenuItems()[0], {});
+    if (masterMenu->getName() == "Start new session"){
+        if(index == 0){
+            currentSession = new Session(ui->customPlot, HIGH_COH);
+            MainWindow::updateMenu(masterMenu->getMenuItems()[0], {});
+        }
+        else if(index == 1){
+            currentSession = new Session(ui->customPlot, MED_COH);
+            MainWindow::updateMenu(masterMenu->getMenuItems()[1], {});
+        }
+        else if(index == 2){
+            currentSession = new Session(ui->customPlot, LOW_COH);
+            MainWindow::updateMenu(masterMenu->getMenuItems()[2], {});
+        }
+        else{
+            qInfo() << "ERROR";
+        }
 
         //Load Session
-        currentSession = new Session(ui->customPlot, HIGH_COH);
         currentSession->start();
         connect(currentSession, &Session::sessionUpdated, this, &MainWindow::onSessionUpdated);
         connect(currentSession, &Session::sessionFinished, this, &MainWindow::onSessionFinished);
