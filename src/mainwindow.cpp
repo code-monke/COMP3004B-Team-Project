@@ -106,8 +106,6 @@ void MainWindow::pressedBackButton(){
 
     if (sessionStatus){
         currentSession->finish();
-        ui->customPlot->hide();
-        ui->listWidget->show();
         updateMenu(masterMenu->getName(), masterMenu->getMenuItems());
     }
     else{
@@ -128,8 +126,6 @@ void MainWindow::pressedMenuButton(){
 
     if (sessionStatus){
         currentSession->finish();
-        ui->customPlot->hide();
-        ui->listWidget->show();
     }
 
     while (masterMenu->getName() != "Main menu") {
@@ -381,4 +377,7 @@ void MainWindow::onSessionFinished(Record *record){
 
     recordings.append(record);
     allRecordings += recordings.last()->toString();
+
+    ui->customPlot->hide();
+    ui->listWidget->show();
 }
