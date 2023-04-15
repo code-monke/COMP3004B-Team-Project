@@ -151,12 +151,11 @@ void MainWindow::pressedLeftButton(){
 }
 void MainWindow::pressedOkButton(){
 
-
     int index = activeQListWidget->currentRow();
     if (index < 0) return;
 
     // Prevent crash if ok button is selected in view and during the session
-    if (masterMenu->getName() == "View" || masterMenu->getName() == "High Coherence Test" || masterMenu->getName() == "Medium Coherence Test" || masterMenu->getName() == "Low Coherence Test") {
+    if (masterMenu->getName() == "View") {
         return;
     }
 
@@ -192,6 +191,15 @@ void MainWindow::pressedOkButton(){
         sessionStatus = true;
         ui->customPlot->show();
         ui->listWidget->hide();
+        return;
+    }
+
+    //logic for setting breath interval
+    if(masterMenu->getName() == "Breath pacer settings"){
+        breathIntervalSetting = (activeQListWidget->currentItem()->text()).toInt();
+        interval = -(100/breathIntervalSetting);
+        navigateBack();
+        return;
     }
 
     //Logic for when the menu is the delete menu.
@@ -216,8 +224,6 @@ void MainWindow::pressedOkButton(){
     if (masterMenu->get(index)->getMenuItems().length() > 0) {
         masterMenu = masterMenu->get(index);
         MainWindow::updateMenu(masterMenu->getName(), masterMenu->getMenuItems());
-
-
     }
     //If the button pressed should display the device's recordings.
     else if (masterMenu->get(index)->getName() == "View") {
