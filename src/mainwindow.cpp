@@ -164,15 +164,15 @@ void MainWindow::pressedOkButton(){
     if (masterMenu->getName() == "Start new session"){
         if(index == 0){
             currentSession = new Session(ui->customPlot, HIGH_COH);
-            MainWindow::updateMenu(masterMenu->getMenuItems()[0], {});
+            MainWindow::updateMenu("High Coherence Test", {});
         }
         else if(index == 1){
             currentSession = new Session(ui->customPlot, MED_COH);
-            MainWindow::updateMenu(masterMenu->getMenuItems()[1], {});
+            MainWindow::updateMenu("Medium Coherence Test", {});
         }
         else if(index == 2){
             currentSession = new Session(ui->customPlot, LOW_COH);
-            MainWindow::updateMenu(masterMenu->getMenuItems()[2], {});
+            MainWindow::updateMenu("Low Coherence Test", {});
         }
         else{
             qInfo() << "ERROR";
@@ -219,20 +219,6 @@ void MainWindow::pressedOkButton(){
 
 
     }
-//    //If the menu is not a parent and clicking on it should start a therapy
-//    else if (masterMenu->get(index)->getMenuItems().length() == 0 && (masterMenu->getName() == "FREQUENCIES" || masterMenu->getName() == "PROGRAMS")) {
-//        if (masterMenu->getName() == "PROGRAMS") {
-//            //Update new menu info
-//            masterMenu = masterMenu->get(index);
-//            MainWindow::updateMenu(programs[index]->getName(), {});
-//            MainWindow::beginTherapy(programs[index]);
-//        }
-//        else if (masterMenu->getName() == "FREQUENCIES") {
-//            masterMenu = masterMenu->get(index);
-//            MainWindow::updateMenu(frequencies[index]->getName(), {});
-//            MainWindow::beginTherapy(frequencies[index]);
-//        }
-//    }
     //If the button pressed should display the device's recordings.
     else if (masterMenu->get(index)->getName() == "View") {
         masterMenu = masterMenu->get(index);
