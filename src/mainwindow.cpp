@@ -102,14 +102,10 @@ void MainWindow::updateMenu(const QString selectedMenuItem, const QStringList me
 }
 
 void MainWindow::pressedBackButton(){
-    qInfo() << "back";
+
 
     if (sessionStatus){
         currentSession->finish();
-        sessionStatus = false;
-        ui->breathPacer->setValue(0);
-        ui->lengthLabel->setText("0:00");
-        pastSessions.push_back(currentSession);
         ui->customPlot->hide();
         ui->listWidget->show();
         updateMenu(masterMenu->getName(), masterMenu->getMenuItems());
@@ -128,14 +124,10 @@ void MainWindow::navigateBack(){
     }
 }
 void MainWindow::pressedMenuButton(){
-    qInfo() << "menu";
+
 
     if (sessionStatus){
         currentSession->finish();
-        sessionStatus = false;
-        ui->breathPacer->setValue(0);
-        ui->lengthLabel->setText("0:00");
-        pastSessions.push_back(currentSession);
         ui->customPlot->hide();
         ui->listWidget->show();
     }
@@ -147,7 +139,7 @@ void MainWindow::pressedMenuButton(){
     updateMenu(masterMenu->getName(), masterMenu->getMenuItems());
 }
 void MainWindow::pressedUpButton(){
-    qInfo() << "up";
+
 
     int nextIndex = activeQListWidget->currentRow() - 1;
 
@@ -159,10 +151,10 @@ void MainWindow::pressedUpButton(){
 
 }
 void MainWindow::pressedLeftButton(){
-    qInfo() << "left";
+
 }
 void MainWindow::pressedOkButton(){
-    qInfo() << "ok";
+
 
     int index = activeQListWidget->currentRow();
     if (index < 0) return;
@@ -209,9 +201,7 @@ void MainWindow::pressedOkButton(){
     //Logic for when the menu is the delete menu.
     if (masterMenu->getName() == "Clear") {
         if (masterMenu->getMenuItems()[index] == "Yes") {
-//            db->deleteRecords();
             allRecordings.clear();
-
             for (int x = 0; x < recordings.size(); x++) {
                 delete recordings[x];
             }
@@ -254,10 +244,10 @@ void MainWindow::pressedOkButton(){
     }
 }
 void MainWindow::pressedRightButton(){
-    qInfo() << "right";
+
 }
 void MainWindow::pressedDownButton(){
-    qInfo() << "down";
+
 
     int nextIndex = activeQListWidget->currentRow() + 1;
 
@@ -284,7 +274,7 @@ void MainWindow::setPower(){
 }
 
 void MainWindow::pressedPowerButton(){
-    qInfo() << "power";
+
 
     if(ui->batteryBar->value() == 0){
         powerStatus = false;
@@ -381,9 +371,14 @@ void MainWindow::onSessionUpdated(double achieveScore, double cohScore, int curC
 */
 void MainWindow::onSessionFinished(Record *record){
     //Reset UI
+    sessionStatus = false;
     ui->coherenceLabel->setText(QString::number(0));
     ui->achievementLabel->setText(QString::number(0));
     ui->cohLight->setStyleSheet(QString(""));
 
-    qInfo() << record->toString().toStdString();
+    ui->breathPacer->setValue(0);
+    ui->lengthLabel->setText("0:00");
+
+    recordings.append(record);
+    allRecordings += recordings.last()->toString();
 }

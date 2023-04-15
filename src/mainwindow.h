@@ -40,7 +40,7 @@ private:
     QStringList allRecordings;
 
     Ui::MainWindow *ui;
-    QVector<Session*> pastSessions;
+    //QVector<Session*> pastSessions;
     Session* currentSession;
 
 
