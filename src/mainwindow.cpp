@@ -296,17 +296,36 @@ void MainWindow::updateTimer(){
 
     ui->lengthLabel->setText(timeString);
 
-    ui->batteryBar->setValue(ui->batteryBar->value()-0.5);
-    ui->batteryLevelAdminSpinBox->setValue(ui->batteryBar->value());
+    QString highBatteryHealth = "QProgressBar { selection-background-color: rgb(78, 154, 6); background-color: rgb(0, 0, 0); }";
+    QString mediumBatteryHealth = "QProgressBar { selection-background-color: rgb(196, 160, 0); background-color: rgb(0, 0, 0); }";
+    QString lowBatteryHealth = "QProgressBar { selection-background-color: rgb(164, 0, 0); background-color: rgb(0, 0, 0); }";
+
+    ui->batteryLevelAdminSpinBox->setValue(ui->batteryLevelAdminSpinBox->value()-0.5);
+    int newLevelInt = int(ui->batteryLevelAdminSpinBox->value());
+    ui->batteryBar->setValue(newLevelInt);
+
     if(ui->batteryBar->value() == 0){
         pressedPowerButton();
+    }
+
+    int batteryLevel = ui->batteryBar->value();
+    if (batteryLevel >= 50) {
+        ui->batteryBar->setStyleSheet(highBatteryHealth);
+    }
+    else if (batteryLevel >= 20) {
+        ui->batteryBar->setStyleSheet(mediumBatteryHealth);
+    }
+    else {
+        ui->batteryBar->setStyleSheet(lowBatteryHealth);
     }
 
     breathPacer();
 }
 
 void MainWindow::changeBatteryLevel(){
-    ui->batteryBar->setValue(ui->batteryLevelAdminSpinBox->value());
+
+    int newLevelInt = int(ui->batteryLevelAdminSpinBox->value());
+    ui->batteryBar->setValue(newLevelInt);
 
     if(ui->batteryBar->value() == 0){
         pressedPowerButton();
