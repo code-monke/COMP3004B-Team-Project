@@ -347,5 +347,5 @@ void MainWindow::onSessionFinished(Record *record){
     ui->achievementLabel->setText(QString::number(0));
     ui->cohLight->setStyleSheet(QString(""));
 
-    cout << record->toString().toStdString() << endl;
+    qInfo() << record->toString().toStdString();
 }

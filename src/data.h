@@ -2,7 +2,7 @@
 #ifndef DATA_H
 #define DATA_H
 
-#include <vector>;
+#include <vector>
 
 using namespace std;
 

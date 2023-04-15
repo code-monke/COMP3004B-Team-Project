@@ -102,12 +102,12 @@ Data::Data(int cohLvl)
 }
 
 double Data::getHeartRate(int t){
-    if (t > (*activeData)[0].size()) return -1;
+    if ((unsigned)t > (*activeData)[0].size()) return -1;
     return (*activeData)[0][t];
 }
 
 double Data::getCoherence(int t){
-    if (t < 5 || t > this->activeData[0].size()) return -1;
+    if (t < 5 || (unsigned)t > (*activeData)[0].size()) return -1;
     int index = t / 5;
     return (*activeData)[1][index];
 }
