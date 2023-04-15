@@ -34,6 +34,8 @@ void Session::update(){
         finish();
         return;
     }
+    curTime += interval;
+
     //Read heart rate and update graph
     double heartRate = data->getHeartRate(curTime);
     if (heartRate != -1) graph->addHeartRate(curTime, heartRate);
@@ -67,7 +69,6 @@ void Session::update(){
     }
 
     emit sessionUpdated(achieveScore, cohScore, curCohLvl, curTime);
-    curTime += interval;
 }
 
 /*

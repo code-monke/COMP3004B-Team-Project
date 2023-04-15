@@ -296,7 +296,7 @@ void MainWindow::updateTimer(){
 
     ui->lengthLabel->setText(timeString);
 
-    ui->batteryBar->setValue(ui->batteryBar->value()-1);
+    ui->batteryBar->setValue(ui->batteryBar->value()-0.5);
     ui->batteryLevelAdminSpinBox->setValue(ui->batteryBar->value());
     if(ui->batteryBar->value() == 0){
         pressedPowerButton();
