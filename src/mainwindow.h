@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QListWidget>
+#include <QMessageBox>
 #include "Menu.h"
 #include "Record.h"
 #include "session.h"

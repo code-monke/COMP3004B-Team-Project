@@ -305,6 +305,16 @@ void MainWindow::updateTimer(){
         pressedPowerButton();
     }
 
+    if(ui->batteryLevelAdminSpinBox->value() == 10){
+        QMessageBox batteryWarning;
+        batteryWarning.setText("10% Battery charge left\n\nConnect to charger");
+        batteryWarning.setIcon(QMessageBox::Warning);
+        batteryWarning.setWindowTitle("Battery Level Low Warning");
+        batteryWarning.setStandardButtons(QMessageBox::Ok);
+        batteryWarning.setDefaultButton(QMessageBox::Ok);
+        batteryWarning.exec();
+    }
+
     int batteryLevel = ui->batteryBar->value();
     if (batteryLevel >= 50) {
         ui->batteryBar->setStyleSheet(highBatteryHealth);
