@@ -107,7 +107,7 @@ double Data::getHeartRate(int t){
 }
 
 double Data::getCoherence(int t){
-    if (t < 5 || t > this->hcData[0].size()) return -1;
+    if (t < 5 || t > this->activeData[0].size()) return -1;
     int index = t / 5;
     return (*activeData)[1][index];
 }
