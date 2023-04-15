@@ -78,7 +78,7 @@ void MainWindow::initializeMainMenu(Menu* m) {
     startNewSession->addChildMenu(LCTSession);
 
     Menu* challengeLevel = new Menu("Challenge level", {"?","?","?","?"}, settings);
-    Menu* breathPacerSettings = new Menu("Breath pacer settings", {"5","10","15","20"}, settings);
+    Menu* breathPacerSettings = new Menu("Breath pacer settings", {"4","5","10","20"}, settings);
     settings->addChildMenu(challengeLevel);
     settings->addChildMenu(breathPacerSettings);
 
