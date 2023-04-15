@@ -76,7 +76,7 @@ void Session::update(){
  */
 void Session::finish(){
     //Average coherence
-    double cohAvg = achieveScore / (curTime / 5.0);
+    double cohAvg = achieveScore / ((int)curTime / 5);
 
     Record *record = new Record(
         cohAvg,
