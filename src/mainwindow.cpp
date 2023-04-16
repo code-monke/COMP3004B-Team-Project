@@ -55,9 +55,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->powerButton, SIGNAL(released()), this, SLOT(pressedPowerButton()));
     connect(ui->chargeAdminButton, SIGNAL(released()), this, SLOT(changeBatteryLevel()));
 
-    highBatteryHealth = "QProgressBar { selection-background-color: rgb(78, 154, 6); background-color: rgb(0, 0, 0); }";
-    mediumBatteryHealth = "QProgressBar { selection-background-color: rgb(196, 160, 0); background-color: rgb(0, 0, 0); }";
-    lowBatteryHealth = "QProgressBar { selection-background-color: rgb(164, 0, 0); background-color: rgb(0, 0, 0); }";
+    highBatteryHealth = "QProgressBar { selection-background-color: rgb(78, 154, 6); background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); }";
+    mediumBatteryHealth = "QProgressBar { selection-background-color: rgb(196, 160, 0); background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); }";
+    lowBatteryHealth = "QProgressBar { selection-background-color: rgb(164, 0, 0); background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); }";
 }
 
 MainWindow::~MainWindow()
@@ -195,6 +195,16 @@ void MainWindow::pressedOkButton(){
         sessionStatus = true;
         ui->customPlot->show();
         ui->listWidget->hide();
+        return;
+    }
+    else if(masterMenu->getName() == "Start new session" && ui->hrContactComboBox->currentIndex() == 0){
+        QMessageBox hrContact;
+        hrContact.setText("HR Contact Disconnected");
+        hrContact.setIcon(QMessageBox::Warning);
+        hrContact.setWindowTitle("HR Disconnected");
+        hrContact.setStandardButtons(QMessageBox::Ok);
+        hrContact.setDefaultButton(QMessageBox::Ok);
+        hrContact.exec();
         return;
     }
 
