@@ -164,7 +164,7 @@ void MainWindow::pressedOkButton(){
     }
 
     //Logic for starting a new session
-    if (masterMenu->getName() == "Start new session"){
+    if (masterMenu->getName() == "Start new session" && ui->hrContactComboBox->currentIndex() == 1){
         if(index == 0){
             currentSession = new Session(ui->customPlot, HIGH_COH);
             MainWindow::updateMenu("High Coherence Test", {});
@@ -324,6 +324,17 @@ void MainWindow::updateTimer(){
     }
     else {
         ui->batteryBar->setStyleSheet(lowBatteryHealth);
+    }
+
+    if(ui->hrContactComboBox->currentIndex() == 0){
+        QMessageBox hrContact;
+        hrContact.setText("HR Contact Disconnected");
+        hrContact.setIcon(QMessageBox::Warning);
+        hrContact.setWindowTitle("HR Disconnected");
+        hrContact.setStandardButtons(QMessageBox::Ok);
+        hrContact.setDefaultButton(QMessageBox::Ok);
+        hrContact.exec();
+        pressedBackButton();
     }
 
     breathPacer();
