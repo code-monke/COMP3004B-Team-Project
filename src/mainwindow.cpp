@@ -265,6 +265,7 @@ void MainWindow::setPower(){
     activeQListWidget->setVisible(powerStatus);
     ui->menuLabel->setVisible(powerStatus);
     ui->programViewWidget->setVisible(powerStatus);
+    ui->hrContactComboBox->setCurrentIndex(0);
 
     ui->upButton->setEnabled(powerStatus);
     ui->downButton->setEnabled(powerStatus);
