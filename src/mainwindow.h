@@ -33,6 +33,10 @@ private:
 
     QString timeString;
 
+    QString highBatteryHealth;
+    QString mediumBatteryHealth;
+    QString lowBatteryHealth;
+
     Menu* masterMenu;
     Menu* mainMenuOG;
     QListWidget *activeQListWidget;
@@ -60,7 +64,7 @@ private slots:
     void updateTimer();
     void updateMenu(const QString selectedMenuItem, const QStringList menuItems);
     void changeBatteryLevel();
-    void onSessionUpdated(double achieveScore, double cohScore, int curCohLvl, int curTime);
+    void onSessionUpdated(double achieveScore, double cohScore, int curCohLvl);
     void onSessionFinished(Record *record);
 
 };

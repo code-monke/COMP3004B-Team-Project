@@ -54,6 +54,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->downButton, SIGNAL(released()), this, SLOT(pressedDownButton()));
     connect(ui->powerButton, SIGNAL(released()), this, SLOT(pressedPowerButton()));
     connect(ui->chargeAdminButton, SIGNAL(released()), this, SLOT(changeBatteryLevel()));
+
+    highBatteryHealth = "QProgressBar { selection-background-color: rgb(78, 154, 6); background-color: rgb(0, 0, 0); }";
+    mediumBatteryHealth = "QProgressBar { selection-background-color: rgb(196, 160, 0); background-color: rgb(0, 0, 0); }";
+    lowBatteryHealth = "QProgressBar { selection-background-color: rgb(164, 0, 0); background-color: rgb(0, 0, 0); }";
 }
 
 MainWindow::~MainWindow()
@@ -293,10 +297,6 @@ void MainWindow::updateTimer(){
 
     ui->lengthLabel->setText(timeString);
 
-    QString highBatteryHealth = "QProgressBar { selection-background-color: rgb(78, 154, 6); background-color: rgb(0, 0, 0); }";
-    QString mediumBatteryHealth = "QProgressBar { selection-background-color: rgb(196, 160, 0); background-color: rgb(0, 0, 0); }";
-    QString lowBatteryHealth = "QProgressBar { selection-background-color: rgb(164, 0, 0); background-color: rgb(0, 0, 0); }";
-
     ui->batteryLevelAdminSpinBox->setValue(ui->batteryLevelAdminSpinBox->value()-0.5);
     int newLevelInt = int(ui->batteryLevelAdminSpinBox->value());
     ui->batteryBar->setValue(newLevelInt);
@@ -334,6 +334,16 @@ void MainWindow::changeBatteryLevel(){
     int newLevelInt = int(ui->batteryLevelAdminSpinBox->value());
     ui->batteryBar->setValue(newLevelInt);
 
+    if (newLevelInt >= 50) {
+        ui->batteryBar->setStyleSheet(highBatteryHealth);
+    }
+    else if (newLevelInt >= 20) {
+        ui->batteryBar->setStyleSheet(mediumBatteryHealth);
+    }
+    else {
+        ui->batteryBar->setStyleSheet(lowBatteryHealth);
+    }
+
     if(ui->batteryBar->value() == 0){
         pressedPowerButton();
     }
@@ -343,7 +353,7 @@ void MainWindow::changeBatteryLevel(){
  * Update coherence and achievement score labels
  * Update coherence level light
 */
-void MainWindow::onSessionUpdated(double achieveScore, double cohScore, int curCohLvl, int curTime){
+void MainWindow::onSessionUpdated(double achieveScore, double cohScore, int curCohLvl){
     if (cohScore != -1) ui->coherenceLabel->setText(QString::number(cohScore));
     ui->achievementLabel->setText(QString::number(achieveScore));
 

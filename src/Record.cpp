@@ -1,4 +1,4 @@
-#include "record.h"
+#include "Record.h"
 
 Record::Record(
     const double averageCoherence,
