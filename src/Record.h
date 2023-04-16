@@ -4,8 +4,9 @@
 #include <QString>
 #include <QDateTime>
 #include <QTime>
+#include <vector>
 
-
+using namespace std;
 
 class Record {
 
@@ -15,9 +16,9 @@ public:
         const QDateTime& startTime,
         const int duration,
         const double achievementScore,
-        const double percentCoh[3]
+        const vector<double> percentCoh
     );
-    const double percentCoh[3];
+    const vector<double> percentCoh;
     void setDuration(int durationMS);
 
     QString toString();
