@@ -62,7 +62,12 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    delete mainMenuOG;
     delete ui;
+
+    for (int i = 0; i < recordings.size(); i++) {
+        delete recordings[i];
+    }
 }
 
 void MainWindow::initializeMainMenu(Menu* m) {
