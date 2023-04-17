@@ -21,17 +21,17 @@ config = {
     HIGH_COH: {
         "min": 0.5,
         "max": 16,
-        "mod": 2
+        "mod": 5
     },
     MED_COH: {
         "min": 1.0,
         "max": 5.0,
-        "mod": 5
+        "mod": 10
     },
     LOW_COH: {
         "min": 0.5,
         "max": 2.5,
-        "mod": 10
+        "mod": 20
     }
 }
 
