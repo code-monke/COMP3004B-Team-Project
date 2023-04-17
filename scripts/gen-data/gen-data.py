@@ -15,6 +15,9 @@ config = {
     "max_hr": 100, #bpm
     
     # Coherence levels (ranges)
+    # orignal ranges: 
+       # [low]0.5 - 1.8, [med]1.8 - 4.0, [high]4.0-16     
+       # added overlap to have variations in coherence levels during a session
     HIGH_COH: {
         "min": 0.5,
         "max": 16,
@@ -43,20 +46,27 @@ def array_to_string(arr):
     res += "\n},"
     return res
 
+# Generates a heart rate from sin(t) where t is the current time
+# The returned value falls perfectly on sin(t)
 def gen_sin_hr(t):
     half_rand_range = (config["max_hr"] - config["min_hr"]) // 2
     return round(math.sin(t / 10) * half_rand_range + config["min_hr"] + half_rand_range, 2)
 
+# Generates heart rate that deviates from sin(t) my adding a random constant
 def gen_hr(t, coherence):
     base = gen_sin_hr(t)
     rand_mod = random.randint(-config[coherence]["mod"], config[coherence]["mod"])
     return round(base + rand_mod, 2)    
 
+# Generate coherence score from heart rate
+# Coherence score is dependent on how far the heart rate was from gen_sin(t)
+# Not how coherence score is actually calculated but gives a useful value
 def gen_cs(t, coherence, hr):
     diff_percent = abs(gen_sin_hr(t) - hr) / config[coherence]["mod"]
     cs = config[coherence]["min"] + diff_percent * (config[coherence]["max"] - config[coherence]["min"])
     return round(cs, 2)
 
+# Generates the heart rates and coherence scores over config["max_time"] duration
 def gen_data(coherence):
     heart_rates = []
     coh_scores = []
