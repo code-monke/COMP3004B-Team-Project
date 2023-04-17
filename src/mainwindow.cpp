@@ -18,8 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     sessionStatus = false;
 
-    //default setting at 5 secconds
-    breathIntervalSetting = 5;
+    //default setting at 10 secconds
+    breathIntervalSetting = 10;
 
     interval = -(100/breathIntervalSetting);
 
