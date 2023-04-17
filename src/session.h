@@ -36,7 +36,8 @@ private:
     //Stats
     double achieveScore;
     double last64cohSum;
-    double percentCoh[3]; // % time spent in {high, medium, low} coh level
+    double numCohReadingsPerLvl[3]; //
+    int numCohReadingsTotal;
 
     void update();
     int cohScoreToLvl(double cohScore);

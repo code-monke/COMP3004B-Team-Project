@@ -16,7 +16,8 @@ Session::Session(QCustomPlot *customPlot, int cohLvl, QObject *parent)
       interval{1},
       achieveScore{0},
       last64cohSum{0},
-      percentCoh{0, 0, 0} //{high, medium, low}
+      numCohReadingsPerLvl{0, 0, 0},
+      numCohReadingsTotal{0}
 {
 
 }
@@ -47,15 +48,14 @@ void Session::update(){
         achieveScore += cohScore;
         last64cohSum += cohScore;
 
+
         //Update % time spent in each coherence level
         double cohLvl = cohScoreToLvl(cohScore);
-        double *percent;
-        if (cohLvl == HIGH_COH) percent = &percentCoh[0];
-        else if (cohLvl == MED_COH) percent = &percentCoh[1];
-        else if (cohLvl == LOW_COH) percent = &percentCoh[2];
+        numCohReadingsTotal++;
 
-        *percent = ((*percent * (curTime - 5)) + 5) / curTime;
-
+        if (cohLvl == HIGH_COH) numCohReadingsPerLvl[0]++;
+        else if (cohLvl == MED_COH) numCohReadingsPerLvl[1]++;
+        else numCohReadingsPerLvl[2]++;
     }
 
     //Read coherence level every 64 seconds
@@ -78,6 +78,11 @@ void Session::update(){
 void Session::finish(){
     //Average coherence
     double cohAvg = achieveScore / ((int)curTime / 5);
+    const vector<double> percentCoh = {
+        numCohReadingsPerLvl[0] / numCohReadingsTotal,
+        numCohReadingsPerLvl[1] / numCohReadingsTotal,
+        numCohReadingsPerLvl[2] / numCohReadingsTotal,
+    };
 
     Record *record = new Record(
         cohAvg,

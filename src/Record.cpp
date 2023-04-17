@@ -5,9 +5,9 @@ Record::Record(
     const QDateTime& startTime,
     const int duration,
     const double achievementScore,
-    const double percentCoh[3]
+    const vector<double> percentCoh
 )
-    : percentCoh{*percentCoh}
+    : percentCoh{percentCoh}
 {
     if (startTime.isValid()) {
         this->averageCoherence = averageCoherence;
