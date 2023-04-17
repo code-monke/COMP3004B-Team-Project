@@ -348,6 +348,7 @@ void MainWindow::updateTimer(){
     //if no more battery, turn off the device
     if(ui->batteryLevelAdminSpinBox->value() == 0){
         pressedPowerButton();
+        return;
     }
 
     //if the battery level is 10, warn the user to charge the battery
