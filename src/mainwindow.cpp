@@ -16,11 +16,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
 
+    //variable which tracks session status
     sessionStatus = false;
 
     //default setting at 10 secconds
     breathIntervalSetting = 10;
 
+    //amount of time between inhaling and exhaling
     interval = -(100/breathIntervalSetting);
 
     //Graph
@@ -55,6 +57,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->powerButton, SIGNAL(released()), this, SLOT(pressedPowerButton()));
     connect(ui->chargeAdminButton, SIGNAL(released()), this, SLOT(changeBatteryLevel()));
 
+    //battery bar color style sheet
     highBatteryHealth = "QProgressBar { selection-background-color: rgb(78, 154, 6); background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); }";
     mediumBatteryHealth = "QProgressBar { selection-background-color: rgb(196, 160, 0); background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); }";
     lowBatteryHealth = "QProgressBar { selection-background-color: rgb(164, 0, 0); background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); }";
@@ -72,6 +75,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeMainMenu(Menu* m) {
 
+    //Creating 3 main menus with their sub menus
     Menu* startNewSession = new Menu("Start new session", {"High Coherence Test", "Medium Coherence Test", "Low Coherence Test"}, m);
     Menu* settings = new Menu("Settings", {"Challenge level","Breath pacer settings"}, m);
     Menu* log = new Menu("Log", {"View", "Clear"}, m);
@@ -79,6 +83,7 @@ void MainWindow::initializeMainMenu(Menu* m) {
     m->addChildMenu(settings);
     m->addChildMenu(log);
 
+    //new session sub menus, 3 different tests
     Menu* HCTSession = new Menu("High Coherence Test", {}, startNewSession);
     Menu* MCTSession = new Menu("Medium Coherence Test", {}, startNewSession);
     Menu* LCTSession = new Menu("Low Coherence Test", {}, startNewSession);
@@ -86,21 +91,25 @@ void MainWindow::initializeMainMenu(Menu* m) {
     startNewSession->addChildMenu(MCTSession);
     startNewSession->addChildMenu(LCTSession);
 
+    //setting submenus
     Menu* challengeLevel = new Menu("Challenge level", {"?","?","?","?"}, settings);
     Menu* breathPacerSettings = new Menu("Breath pacer settings", {"4","5","10","20"}, settings);
     settings->addChildMenu(challengeLevel);
     settings->addChildMenu(breathPacerSettings);
 
+    //log submenus
     Menu* viewLog = new Menu("View",{}, log);
     Menu* clearLog = new Menu("Clear", {"Yes","No"}, log);
     log->addChildMenu(viewLog);
     log->addChildMenu(clearLog);
 
+    //making labels 0 or 0:00
     ui->lengthLabel->setText("0:00");
     ui->achievementLabel->setText("0");
     ui->coherenceLabel->setText("0");
 }
 
+//updating the listwidget with menu items
 void MainWindow::updateMenu(const QString selectedMenuItem, const QStringList menuItems) {
 
     activeQListWidget->clear();
@@ -110,9 +119,10 @@ void MainWindow::updateMenu(const QString selectedMenuItem, const QStringList me
     ui->menuLabel->setText(selectedMenuItem);
 }
 
+//actions took upon back button press
 void MainWindow::pressedBackButton(){
 
-
+    //if the session is ruinning, save the session and exit back. Otherwise navigate back
     if (sessionStatus){
         currentSession->finish();
         updateMenu(masterMenu->getName(), masterMenu->getMenuItems());
@@ -121,6 +131,8 @@ void MainWindow::pressedBackButton(){
         this->navigateBack();
     }
 }
+
+//going back to parent menu of current menu
 void MainWindow::navigateBack(){
     if (masterMenu->getName() == "Main menu") {
         activeQListWidget->setCurrentRow(0);
@@ -130,22 +142,27 @@ void MainWindow::navigateBack(){
         updateMenu(masterMenu->getName(), masterMenu->getMenuItems());
     }
 }
+
+//actions took upon pressing menu button
 void MainWindow::pressedMenuButton(){
 
-
+    //if session is running, save session
     if (sessionStatus){
         currentSession->finish();
     }
 
+    //going back to main menu
     while (masterMenu->getName() != "Main menu") {
         masterMenu = masterMenu->getParent();
     }
 
     updateMenu(masterMenu->getName(), masterMenu->getMenuItems());
 }
+
+//actions made upon pressing the up button
 void MainWindow::pressedUpButton(){
 
-
+    //above row if not less than 0
     int nextIndex = activeQListWidget->currentRow() - 1;
 
     if(nextIndex < 0){
@@ -158,12 +175,15 @@ void MainWindow::pressedUpButton(){
 void MainWindow::pressedLeftButton(){
 
 }
+
+//actions made upon pressing the ok button
 void MainWindow::pressedOkButton(){
+
 
     int index = activeQListWidget->currentRow();
     if (index < 0) return;
 
-    // Prevent crash if ok button is selected in view and during the session
+    // Prevent crash if ok button is selected in view
     if (masterMenu->getName() == "View") {
         return;
     }
@@ -182,26 +202,27 @@ void MainWindow::pressedOkButton(){
             currentSession = new Session(ui->customPlot, LOW_COH);
             MainWindow::updateMenu("Low Coherence Test", {});
         }
-        else{
-            qInfo() << "ERROR";
-        }
 
         //Load Session
         currentSession->start();
         connect(currentSession, &Session::sessionUpdated, this, &MainWindow::onSessionUpdated);
         connect(currentSession, &Session::sessionFinished, this, &MainWindow::onSessionFinished);
 
+        //creating time string
         int currentTimerCount = currentSession->getTime();
         timeString = QString::number(currentTimerCount/60) + ((currentTimerCount%60 < 10) ? + ":0" + QString::number(currentTimerCount%60) : + ":" + QString::number(currentTimerCount%60));
-
         ui->lengthLabel->setText(timeString);
+
+        //using signal to work with timer used in session class
         connect(currentSession->getTimer(), &QTimer::timeout, this, &MainWindow::updateTimer);
 
+        //session status is true and list widget is hidden and custom plot is shown
         sessionStatus = true;
         ui->customPlot->show();
         ui->listWidget->hide();
         return;
     }
+    //Message box is displayed if hr contact is not on and when trying to start session
     else if(masterMenu->getName() == "Start new session" && ui->hrContactComboBox->currentIndex() == 0){
         QMessageBox hrContact;
         hrContact.setText("HR Contact Disconnected");
@@ -221,7 +242,7 @@ void MainWindow::pressedOkButton(){
         return;
     }
 
-    //Logic for when the menu is the delete menu.
+    //Logic for when the menu is the clear menu.
     if (masterMenu->getName() == "Clear") {
         if (masterMenu->getMenuItems()[index] == "Yes") {
             allRecordings.clear();
@@ -253,9 +274,11 @@ void MainWindow::pressedOkButton(){
 void MainWindow::pressedRightButton(){
 
 }
+
+//actions done upon pressing down button
 void MainWindow::pressedDownButton(){
 
-
+    //selects row below selected row
     int nextIndex = activeQListWidget->currentRow() + 1;
 
     if (nextIndex > activeQListWidget->count() - 1) {
@@ -264,6 +287,8 @@ void MainWindow::pressedDownButton(){
 
     activeQListWidget->setCurrentRow(nextIndex);
 }
+
+//turning off/on buttons and widgets based on power status
 void MainWindow::setPower(){
     MainWindow::pressedMenuButton();
 
@@ -281,9 +306,10 @@ void MainWindow::setPower(){
     ui->backButton->setEnabled(powerStatus);
 }
 
+//actions made upon pressing power button
 void MainWindow::pressedPowerButton(){
 
-
+    //changing power status when power button is pressed
     if(ui->batteryBar->value() == 0){
         powerStatus = false;
     }
@@ -294,10 +320,10 @@ void MainWindow::pressedPowerButton(){
     setPower();
 }
 
+//breathpacer logic
 void MainWindow::breathPacer(){
-    //while the session is still running
-    //increase the breathPacer progress bar by an increment of 20 every seccond. Once it reaches 100, decrement it by 20 every second.
 
+    //if session is running, make the breathpacer increase at an interval and decrease at an interval. (breathing in and breating out)
     if(sessionStatus){
         if(ui->breathPacer->value() == 100 || ui->breathPacer->value() == 0){
             interval = -interval;
@@ -306,21 +332,25 @@ void MainWindow::breathPacer(){
     }
 }
 
+//This method updates different things correlated with the timer
 void MainWindow::updateTimer(){
+
+    //creating time string
     int currentTimerCount = currentSession->getTime();
-
     timeString = QString::number(currentTimerCount/60) + ((currentTimerCount%60 < 10) ? + ":0" + QString::number(currentTimerCount%60) : + ":" + QString::number(currentTimerCount%60));
-
     ui->lengthLabel->setText(timeString);
 
+    //discharging battery
     ui->batteryLevelAdminSpinBox->setValue(ui->batteryLevelAdminSpinBox->value()-0.5);
     int newLevelInt = int(ui->batteryLevelAdminSpinBox->value());
     ui->batteryBar->setValue(newLevelInt);
 
-    if(ui->batteryBar->value() == 0){
+    //if no more battery, turn off the device
+    if(ui->batteryLevelAdminSpinBox->value() == 0){
         pressedPowerButton();
     }
 
+    //if the battery level is 10, warn the user to charge the battery
     if(ui->batteryLevelAdminSpinBox->value() == 10){
         QMessageBox batteryWarning;
         batteryWarning.setText("10% Battery charge left\n\nConnect to charger");
@@ -331,6 +361,7 @@ void MainWindow::updateTimer(){
         batteryWarning.exec();
     }
 
+    //switching style sheet based on battery percentage
     int batteryLevel = ui->batteryBar->value();
     if (batteryLevel >= 50) {
         ui->batteryBar->setStyleSheet(highBatteryHealth);
@@ -342,6 +373,7 @@ void MainWindow::updateTimer(){
         ui->batteryBar->setStyleSheet(lowBatteryHealth);
     }
 
+    //if hr is disconnect while session, display warning message
     if(ui->hrContactComboBox->currentIndex() == 0){
         QMessageBox hrContact;
         hrContact.setText("HR Contact Disconnected");
@@ -353,14 +385,18 @@ void MainWindow::updateTimer(){
         pressedBackButton();
     }
 
+    //change breath pacer
     breathPacer();
 }
 
+//changing battery level upon pressing recharge button
 void MainWindow::changeBatteryLevel(){
 
+    //getting integer value and setting it to batterybar
     int newLevelInt = int(ui->batteryLevelAdminSpinBox->value());
     ui->batteryBar->setValue(newLevelInt);
 
+    //switching the style sheet
     if (newLevelInt >= 50) {
         ui->batteryBar->setStyleSheet(highBatteryHealth);
     }
@@ -371,6 +407,7 @@ void MainWindow::changeBatteryLevel(){
         ui->batteryBar->setStyleSheet(lowBatteryHealth);
     }
 
+    //turning off the device if battery is at 0%
     if(ui->batteryBar->value() == 0){
         pressedPowerButton();
     }
@@ -401,8 +438,8 @@ void MainWindow::onSessionUpdated(double achieveScore, double cohScore, int curC
 
 /*
  * Reset UI
- * Show summary view(?)
- * Update log history(?)
+ * Showing summary view
+ * Updating log history
 */
 void MainWindow::onSessionFinished(Record *record){
     //Reset UI
@@ -410,13 +447,14 @@ void MainWindow::onSessionFinished(Record *record){
     ui->coherenceLabel->setText(QString::number(0));
     ui->achievementLabel->setText(QString::number(0));
     ui->cohLight->setStyleSheet(QString(""));
-
     ui->breathPacer->setValue(0);
     ui->lengthLabel->setText("0:00");
 
+    //updating records
     recordings.append(record);
     allRecordings += recordings.last()->toString();
 
+    //hiding plot and showing listwidget
     ui->customPlot->hide();
     ui->listWidget->show();
 }
