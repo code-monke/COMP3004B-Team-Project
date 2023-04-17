@@ -10,7 +10,7 @@ Record::Record(const double averageCoherence, const QDateTime& startTime, const 
     }
 }
 
-
+//creating log string with time of day, average coherence, achievement score, duration of session, and time spent with high/medium/low coherence levels
 QString Record::toString() {
     QString newString =
             startTime.toString("ddd h:mm ap") + "\n"

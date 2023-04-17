@@ -22,6 +22,7 @@ Session::Session(QCustomPlot *customPlot, int cohLvl, QObject *parent)
 
 }
 
+//starting timer and connecting signal
 void Session::start(){
     curTime = 0;
     timer = new QTimer(this);
