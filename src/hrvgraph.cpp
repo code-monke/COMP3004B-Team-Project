@@ -22,6 +22,7 @@ HRVGraph::HRVGraph(QCustomPlot* customPlot, QObject *parent)
 
 }
 
+//adding heart rate to plot
 void HRVGraph::addHeartRate(double t, double heartRate){
     x.push_back(t);
     y.push_back(heartRate);
@@ -29,6 +30,7 @@ void HRVGraph::addHeartRate(double t, double heartRate){
     customPlot->replot();
 }
 
+//clearing graph
 void HRVGraph::clear(){
     customPlot->clearGraphs();
 }

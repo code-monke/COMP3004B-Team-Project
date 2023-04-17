@@ -1,6 +1,7 @@
 #include "constants.h"
 #include "data.h"
 
+//manual data points for three separate coherence tests (high, medium, low)
 Data::Data(int cohLvl)
 {
     this->hcData = {
@@ -101,11 +102,13 @@ Data::Data(int cohLvl)
     if (cohLvl == LOW_COH) activeData = &this->lcData;
 }
 
+//getting heart rate based on time
 double Data::getHeartRate(int t){
     if ((unsigned)t > (*activeData)[0].size()) return -1;
     return (*activeData)[0][t];
 }
 
+//getting coherence level based on time
 double Data::getCoherence(int t){
     if (t < 5 || (unsigned)t > (*activeData)[0].size()) return -1;
     int index = t / 5;

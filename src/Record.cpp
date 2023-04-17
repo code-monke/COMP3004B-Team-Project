@@ -1,13 +1,6 @@
 #include "Record.h"
 
-Record::Record(
-    const double averageCoherence,
-    const QDateTime& startTime,
-    const int duration,
-    const double achievementScore,
-    const vector<double> percentCoh
-)
-    : percentCoh{percentCoh}
+Record::Record(const double averageCoherence, const QDateTime& startTime, const int duration, const double achievementScore, const vector<double> percentCoh): percentCoh{percentCoh}
 {
     if (startTime.isValid()) {
         this->averageCoherence = averageCoherence;
