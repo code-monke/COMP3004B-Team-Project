@@ -426,14 +426,17 @@ void MainWindow::onSessionUpdated(double achieveScore, double cohScore, int curC
     if (curCohLvl == HIGH_COH) {
         QString style = "background-color: green;";
         ui->cohLight->setStyleSheet(style);
+        qInfo() << "Beep!";
     }
     else if (curCohLvl == MED_COH) {
         QString style = "background-color: blue;";
         ui->cohLight->setStyleSheet(style);
+        qInfo() << "Beep!";
     }
     else if (curCohLvl == LOW_COH){
         QString style = "background-color: red;";
         ui->cohLight->setStyleSheet(style);
+        qInfo() << "Beep!";
     }
 }
 
