@@ -20,6 +20,10 @@ private:
     vector<vector<double>> lcData; // low coherence data
     // pointer to data currently being used (hc,mc, lc)
     vector<vector<double>> *activeData;
+
+    vector<double> heartRateData;
+    vector<double> coherenceData;
 };
 
 #endif // DATA_H
+
