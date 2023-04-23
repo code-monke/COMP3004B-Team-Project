@@ -9,5 +9,8 @@
         <file>buttons/powerButton.svg</file>
         <file>buttons/rightButton.svg</file>
         <file>buttons/upButton.svg</file>
+        <file>hcData.json</file>
+        <file>mcData.json</file>
+        <file>lcData.json</file>
     </qresource>
 </RCC>

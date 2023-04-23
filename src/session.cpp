@@ -6,8 +6,6 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
-
 Session::Session(QCustomPlot *customPlot, int cohLvl, QObject *parent)
     : QObject{parent},
       graph{new HRVGraph(customPlot)},

@@ -4,8 +4,6 @@
 #include "Menu.h"
 #include <iostream>
 
-using namespace std;
-
 #define CMD_UP 1
 // etc
 

@@ -107,7 +107,7 @@ Data::Data(int cohLvl)
     QByteArray data;
     switch (cohLvl) {
     case LOW_COH: {
-        QFile file("lcData.json");
+        QFile file(":/lcData.json");
         if(file.exists() && file.open(QIODevice::ReadOnly)) {
             data = file.readAll();
             file.close();
@@ -115,7 +115,7 @@ Data::Data(int cohLvl)
         break;
     }
     case MED_COH: {
-        QFile file("mcData.json");
+        QFile file(":/mcData.json");
         if(file.exists() && file.open(QIODevice::ReadOnly)) {
             data = file.readAll();
             file.close();
@@ -123,7 +123,7 @@ Data::Data(int cohLvl)
         break;
     }
     case HIGH_COH: {
-            QFile file("hcData.json");
+            QFile file(":/hcData.json");
             if(file.exists() && file.open(QIODevice::ReadOnly)) {
                 data = file.readAll();
                 file.close();
