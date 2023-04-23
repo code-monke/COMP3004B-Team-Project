@@ -3,8 +3,11 @@
 ## Team Members
 - Michael Uzoegwu
   - HRV Graph
-    - Created HRV data
-    - Coherence Light indicator
+    - Created HRV data (Python Script)
+    - Implemented display of HRV Graph over time
+    - Caluclated metrics needed for History log
+    - Implemented updates to coherence light, coherence score and achievement score 
+      indicators on the UI
 - Asad Ansari
   - Created UI
   - Programmed Buttons
